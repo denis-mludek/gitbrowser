@@ -85,22 +85,22 @@ body {
         border-bottom-color: #a9a9a9;
         border-bottom-color: rgba(255,255,255,.25);
       }
-    }
-  }
-  >.active {
-    >a {
-      color: #fff;
-      border-bottom-color: #fff;
-      &:hover {
+      &.active {
         color: #fff;
         border-bottom-color: #fff;
-      }
-      &:focus {
-        color: #fff;
-        border-bottom-color: #fff;
+        &:hover {
+          color: #fff;
+          border-bottom-color: #fff;
+        }
+        &:focus {
+          color: #fff;
+          border-bottom-color: #fff;
+        }
       }
     }
+
   }
+
 }
 .cover {
   padding: 0 20px;

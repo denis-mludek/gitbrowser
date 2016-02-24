@@ -11,7 +11,6 @@ export default class Home extends Component {
           <nav>
             <ul className="nav masthead-nav">
               <li><NavLink to="/" onlyActiveOnIndex>Home</NavLink></li>
-              <li><NavLink to="/about">About</NavLink></li>
             </ul>
           </nav>
         </div>
