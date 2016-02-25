@@ -1,11 +1,12 @@
 const path = require('path');
 const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
+const config = require('./config')
 
 module.exports = {
   devtool: 'eval-source-map',
   entry: [
-    'webpack-dev-server/client?http://localhost:3000',
+    'webpack-dev-server/client?http://localhost:'+config.serverPort,
     'webpack/hot/only-dev-server',
     'bootstrap-loader',
     './src/index'
@@ -26,7 +27,7 @@ module.exports = {
     loaders: [{
       test: /\.jsx$|\.js$/,
       loaders: ['react-hot', 'babel'],
-      exclude: /node_modules/,
+      exclude: /node_modules/
     },
     {
       test: /\.scss$|\.sass$/,

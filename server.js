@@ -1,9 +1,10 @@
-var webpack = require('webpack');
-var WebpackDevServer = require('webpack-dev-server');
-var config = require('./webpack.config');
+const webpack = require('webpack')
+const WebpackDevServer = require('webpack-dev-server')
+const webpackConfig = require('./webpack.config')
+const config = require('./config')
 
-new WebpackDevServer(webpack(config), {
-  publicPath: config.output.publicPath,
+new WebpackDevServer(webpack(webpackConfig), {
+  publicPath: webpackConfig.output.publicPath,
   hot: true,
   historyApiFallback: true,
   stats: {
@@ -13,10 +14,10 @@ new WebpackDevServer(webpack(config), {
       chunks: false,
       children: false
   }
-}).listen(3000, 'localhost', function (err, result) {
+}).listen(config.serverPort, 'localhost', function (err, result) {
     if (err) {
-      console.log("Oops, there is an Error denis ! ", err);
+      console.warn("Oops, there is an Error denis ! ", err)
     }
 
-    console.log('Listening at localhost:3000');
-  });
+    console.log('Listening at localhost:', config.serverPort)
+  })
