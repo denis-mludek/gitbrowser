@@ -41,7 +41,7 @@ export default class SearchBar extends Component {
   fetchRepos(text) {
     githubApi.searchInRepositories(text)
       .then(json => {
-        this.setState({results: json.items});
+        this.setState({results: json.items})
       }).catch(error => {
         console.warn(error)
       })
@@ -49,19 +49,20 @@ export default class SearchBar extends Component {
 
   render() {
     return (
-      <div>
-          <div className="col-sm-10 searchpanel">
-            <input type="text"
-                   className="form-control input-lg"
-                   placeholder="Search knowledge here"
-                   autoFocus="true"
-                   onChange={this._onChange}
-                   onKeyDown={this._onKeyDown}
-                   onKeyPress={this._onKeyPress}
-              />
+      <div className="col-md-offset-1 col-md-10 searchpanel">
+        <div className="input-group">
+          <span className="input-group-addon glyphicon glyphicon-search"></span>
+          <input type="text"
+                 className="form-control input-lg"
+                 placeholder="Search repositories"
+                 autoFocus="true"
+                 onChange={this._onChange}
+                 onKeyDown={this._onKeyDown}
+                 onKeyPress={this._onKeyPress}
+            />
+        </div>
 
-            <SearchResultsList reposList={this.state.results} />
-          </div>
+        <SearchResultsList reposList={this.state.results} />
       </div>
     )
   }

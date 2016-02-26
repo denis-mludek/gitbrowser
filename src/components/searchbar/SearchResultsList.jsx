@@ -1,10 +1,12 @@
 import React from 'react'
+import NavLink from '../header/NavLink'
 
-const SearchResultsList = (props) => {
+const SearchResultsList = ({reposList}) => {
   return (
     <ul>
-      { props.reposList.map((item, i) => {
-        return <li key={i} data-id={i}><a href={item.html_url} target="_blank" >{item.name}</a></li>
+      { reposList.map((item, i) => {
+        const route = '/repos/' + item.full_name
+        return <li key={i} data-id={i}><NavLink to={route}>{item.name}</NavLink></li>
       })}
     </ul>
   )
