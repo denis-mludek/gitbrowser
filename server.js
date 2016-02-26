@@ -14,10 +14,10 @@ new WebpackDevServer(webpack(webpackConfig), {
       chunks: false,
       children: false
   }
-}).listen(config.serverPort, 'localhost', function (err, result) {
+}).listen(config.server.port, 'localhost', function (err, result) {
     if (err) {
       console.warn("Oops, there is an Error denis ! ", err)
     }
 
-    console.log('Listening at localhost:', config.serverPort)
+    console.log('Listening at localhost:', config.server.port)
   })

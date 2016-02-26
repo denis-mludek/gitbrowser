@@ -6,7 +6,7 @@ const config = require('./config')
 module.exports = {
   devtool: 'eval-source-map',
   entry: [
-    'webpack-dev-server/client?http://localhost:'+config.serverPort,
+    'webpack-dev-server/client?http://localhost:'+config.server.port,
     'webpack/hot/only-dev-server',
     'bootstrap-loader',
     './src/index'
@@ -25,12 +25,17 @@ module.exports = {
   ],
   module: {
     loaders: [{
-      test: /\.jsx$|\.js$/,
+      test: /\.jsx$/,
       loaders: ['react-hot', 'babel'],
       exclude: /node_modules/
     },
     {
-      test: /\.scss$|\.sass$/,
+      test: /\.js$/,
+      loaders: ['babel'],
+      exclude: /node_modules/
+    },
+    {
+      test: /\.sass$/,
       loaders: ["style", "css", "sass?indentedSyntax&sourceMap"]
     },
     {
