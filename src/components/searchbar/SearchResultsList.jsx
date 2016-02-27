@@ -1,5 +1,5 @@
 import React from 'react'
-import NavLink from '../header/NavLink'
+import NavLink from '../nav/NavLink'
 
 const SearchResultsList = ({reposList}) => {
   return (
