@@ -7,12 +7,12 @@ const SimpleInformations = ({repo}) => {
     <div className="raw">
       <div className="col-md-12 basicInformations">
         <p>Created : {dateReadable(repo.created_at)}</p>
+        <p>Last push : {dateReadable(repo.pushed_at)}</p>
+        <br />
         <p>Stargazers : {repo.stargazers_count}</p>
         <p>Watchers : {repo.watchers_count}</p>
         <p>Forks : {repo.forks_count}</p>
         <p>Open Issues : {repo.open_issues_count}</p>
-        <p>Last push : {dateReadable(repo.pushed_at)}</p>
-        <p></p>
       </div>
     </div>
   )

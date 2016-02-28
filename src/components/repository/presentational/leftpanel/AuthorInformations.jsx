@@ -14,7 +14,7 @@ const AuthorInformations = ({owner}) => {
 }
 
 AuthorInformations.propTypes = {
-  owner: React.PropTypes.object.isRequired
+  owner: React.PropTypes.object
 }
 
 export default AuthorInformations
