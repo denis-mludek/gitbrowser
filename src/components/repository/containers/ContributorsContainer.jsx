@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Loader from 'react-loader'
 
-import { githubApi } from '../../../services/githubApi'
+import githubApi from '../../../services/githubApi'
 import Contributors from './../presentational/mainpanel/Contributors'
 import Paginator from './../presentational/mainpanel/Paginator'
 
@@ -21,10 +21,10 @@ export default class ContributorsContainer extends Component {
   }
 
   fetchContributors(page = 1, per_page = 6) {
-    githubApi.getContributors(this.props.urlEndpoint, page, per_page)
+    githubApi.getDataList(this.props.urlEndpoint, page, per_page)
       .then((data) => {
         this.setState({
-          contributors: data.contributors,
+          contributors: data.list,
           pagination: data.pagination,
           loaded: true
         })
@@ -35,7 +35,7 @@ export default class ContributorsContainer extends Component {
 
   _handlePaginationClick = (next) => {
     return () => {
-      this.setState({loaded:false})
+      this.setState({loaded: false})
       this.fetchContributors(next.page, next.per_page)
     }
   }

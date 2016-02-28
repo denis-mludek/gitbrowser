@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import _ from 'underscore'
 
 import SearchResultsList from './SearchResultsList'
-import { githubApi } from '../../services/githubApi'
+import githubApi from '../../services/githubApi'
 import './SearchBar.sass'
 
 const MIN_CHARS = 3

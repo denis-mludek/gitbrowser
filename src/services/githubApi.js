@@ -5,7 +5,6 @@ import parseLinkHeader from 'parse-link-header'
 const URL_API = 'https://api.github.com'
 const SEARCH_REPOS_URI = 'search/repositories'
 const REPOS_URI = 'repos'
-const COMMITS_URI = 'commits'
 
 const endpoint = fetchPlus.connectEndpoint(URL_API).addMiddleware(plusJson())
 
@@ -14,7 +13,7 @@ const endpoint = fetchPlus.connectEndpoint(URL_API).addMiddleware(plusJson())
   For some resources, you can also set a custom page size up to 100 with the ?per_page parameter.
   Note that for technical reasons not all endpoints respect the ?per_page parameter, see events for example.*/
 
-export const githubApi = {
+const githubApi = {
   searchInRepositories(q, per_page = 15) {
     return endpoint.browse(
       SEARCH_REPOS_URI,
@@ -28,19 +27,24 @@ export const githubApi = {
     )
   },
 
-  async getContributors(urlEndpoint, page, per_page) {
-    const response = await fetchPlus.fetch(urlEndpoint, {query: {per_page, page}})
-    const parsedPagination = parseLinkHeader(response.headers.get('Link'))
-    const jsonBody = await response.json()
-    const mergedJsonPagination = Object.assign({}, {contributors:jsonBody, pagination: parsedPagination})
-
-    return mergedJsonPagination
-  },
-
-  getCommits(owner, repo, per_page = 100) {
-    return endpoint.browse(
-      [CONTRIBUTORS_URI, owner, repo, COMMITS_URI],
-      {query: {per_page}}
-    )
+  async getDataList(urlEndpoint, page, per_page) {
+    const url = urlEndpoint.replace('{/sha}', '')
+    const response = await fetchPlus.fetch(url, {query: {per_page, page}})
+    const json = mergeLinkPaginationAndBody(response)
+    return json
   }
 }
+
+async function mergeLinkPaginationAndBody(response) {
+  const headerLink = response.headers.get('Link')
+  const jsonData = await response.json()
+  let pagination = {}
+
+  if(headerLink){
+    pagination = parseLinkHeader(headerLink)
+  }
+
+  return Object.assign({}, { list:jsonData, pagination })
+}
+
+export default githubApi

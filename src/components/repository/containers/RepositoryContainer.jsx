@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Loader from 'react-loader'
 
-import { githubApi } from '../../../services/githubApi'
+import githubApi from '../../../services/githubApi'
 
 import Repository from './../Repository'
 
@@ -18,7 +18,10 @@ export default class RepositoryContainer extends Component {
   fetchRepositoryData(){
     githubApi.getRepository(this.props.params.userName, this.props.params.repoName)
       .then((json) => {
-          this.setState({repository:json, loaded:true})
+        this.setState({
+          repository: json,
+          loaded: true
+        })
       }).catch(error => {
         console.warn(error)
       })
