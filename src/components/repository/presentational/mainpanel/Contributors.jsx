@@ -14,15 +14,15 @@ const Contributor = ({commiter}) => {
 
 const Contributors = ({contributors, children}) => {
   return (
-  <div className="raw contributors">
-    <h2>Contributors</h2>
+    <div className="raw contributors">
+      <h2>Contributors</h2>
 
-    { contributors.map((commiter, i) => {
-      return <Contributor key={i} commiter={commiter} />
-    })}
+      { contributors.map((commiter, i) => {
+        return <Contributor key={i} commiter={commiter} />
+      })}
 
-    {children}
-  </div>
+      {children}
+    </div>
   )
 }
 
