@@ -47,7 +47,7 @@ export default class UsersImpactContainer extends Component {
   render() {
     return (
       <Loader loaded={this.state.loaded} >
-        <UsersImpact commits={this.state.commits} />
+        <UsersImpact data={this.state.commits} />
       </Loader>
     )
   }

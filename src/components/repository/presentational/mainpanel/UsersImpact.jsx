@@ -1,10 +1,9 @@
 import React from 'react'
-import { Bar } from 'react-chartjs'
 import ReactHighcharts from 'react-highcharts/bundle/ReactHighcharts'
-import ChartsConf from './../../../../services/chartsConf'
+import chartsConf from './../../../../services/chartsConf'
 
 const UsersImpact = ({data}) => {
-  ReactHighcharts.Highcharts.setOptions(ChartsConf.UserImpactTheme)
+  ReactHighcharts.Highcharts.setOptions(chartsConf.DarkTheme)
   const config = {
     chart: {
       type: 'column'

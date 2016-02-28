@@ -8,6 +8,7 @@ import MainPanel from './presentational/MainPanel'
 import ContributorsContainer from './containers/ContributorsContainer'
 import Metrics from './presentational/mainpanel/Metrics'
 import UsersImpactContainer from './containers/UsersImpactContainer'
+import TimelineCommitsContainer from './containers/TimelineCommitsContainer'
 
 import './Repository.sass'
 
@@ -28,6 +29,7 @@ const Repository = ({repo}) => {
         <ContributorsContainer urlEndpoint={repo.contributors_url} />
         <Metrics>
           <UsersImpactContainer urlEndpoint={repo.commits_url} />
+          <TimelineCommitsContainer urlEndpoint={repo.commits_url}/>
         </Metrics>
       </MainPanel>
     </div>
