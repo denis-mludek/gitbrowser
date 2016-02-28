@@ -9,6 +9,7 @@ module.exports = {
     'webpack-dev-server/client?http://localhost:'+config.server.port,
     'webpack/hot/only-dev-server',
     'bootstrap-loader',
+    'babel-polyfill',
     './src/index'
   ],
   output: {
