@@ -1,36 +1,36 @@
 import React from 'react'
-import Loader from 'react-loader'
 
 import Header from './presentational/Header'
 import LeftPanel from './presentational/LeftPanel'
-import AuthorInformations from './presentational/AuthorInformations'
-import SimpleInformations from './presentational/SimpleInformations'
+import AuthorInformations from './presentational/leftpanel/AuthorInformations'
+import SimpleInformations from './presentational/leftpanel/SimpleInformations'
 import MainPanel from './presentational/MainPanel'
+import ContributorsContainer from './containers/ContributorsContainer'
 
+import './Repository.sass'
 
-const Repository = (props) => {
-  const {repo, loaded} = props
-  const headerProps = Object.assign({}, {name:repo.full_name, url:repo.html_url})
+const Repository = ({repo}) => {
+  const headerProps = Object.assign({}, {
+    name:repo.full_name,
+    url:repo.html_url
+  })
 
   return (
     <div className="repository">
-      <Loader loaded={loaded}>
-        <Header {...headerProps} />
-        <LeftPanel>
-          <AuthorInformations owner={repo.owner} />
-          <SimpleInformations repo={repo} />
-        </LeftPanel>
-        <MainPanel>
-
-        </MainPanel>
-      </Loader>
+      <Header {...headerProps} />
+      <LeftPanel>
+        <AuthorInformations owner={repo.owner} />
+        <SimpleInformations repo={repo} />
+      </LeftPanel>
+      <MainPanel>
+        <ContributorsContainer urlEndpoint={repo.contributors_url} />
+      </MainPanel>
     </div>
   )
 }
 
 Repository.propTypes = {
-  repo: React.PropTypes.object.isRequired,
-  loaded: React.PropTypes.bool.isRequired
+  repo: React.PropTypes.object.isRequired
 }
 
 export default Repository

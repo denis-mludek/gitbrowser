@@ -8,8 +8,4 @@ const MainPanel = ({children}) => {
   )
 }
 
-MainPanel.propTypes = {
-  repo: React.PropTypes.object
-}
-
 export default MainPanel

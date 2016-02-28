@@ -3,6 +3,9 @@
 
   .leftpanel
     padding: 5px
+    background-color: rgba(34,41,49, 0.5)
+    border: hidden
+    border-radius: 5px
 
     .authorInformations
       text-align: center
@@ -11,7 +14,12 @@
       margin-top: 10px
 
   .mainpanel
-    padding: 5px
+    @extend .leftpanel
+
+    .contributors
+
+      .contributor
+        text-align: center
 
   .header
     h1

@@ -9,8 +9,8 @@ const Header = ({name, url}) => {
 }
 
 Header.propTypes = {
-  name: React.PropTypes.string.isRequired,
-  url: React.PropTypes.string.isRequired
+  name: React.PropTypes.string,
+  url: React.PropTypes.string
 }
 
 export default Header

@@ -8,8 +8,4 @@ const LeftPanel = ({children}) => {
   )
 }
 
-LeftPanel.propTypes = {
-  repo: React.PropTypes.object
-}
-
 export default LeftPanel
