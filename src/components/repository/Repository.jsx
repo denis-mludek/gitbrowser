@@ -6,6 +6,8 @@ import AuthorInformations from './presentational/leftpanel/AuthorInformations'
 import SimpleInformations from './presentational/leftpanel/SimpleInformations'
 import MainPanel from './presentational/MainPanel'
 import ContributorsContainer from './containers/ContributorsContainer'
+import Metrics from './presentational/mainpanel/Metrics'
+import UsersImpactContainer from './containers/UsersImpactContainer'
 
 import './Repository.sass'
 
@@ -24,6 +26,9 @@ const Repository = ({repo}) => {
       </LeftPanel>
       <MainPanel>
         <ContributorsContainer urlEndpoint={repo.contributors_url} />
+        <Metrics>
+          <UsersImpactContainer urlEndpoint={repo.commits_url} />
+        </Metrics>
       </MainPanel>
     </div>
   )
