@@ -26,7 +26,7 @@ const TimelineCommits = ({data}) => {
     },
     tooltip: {
       headerFormat: '<b>{series.name}</b><br>',
-      pointFormat: '{point.x:%e. %b}: {point.y} commits'
+      pointFormat: '{point.x:%e. %b %Y}: {point.y} commits'
     },
 
     plotOptions: {
