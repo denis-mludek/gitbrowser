@@ -32,7 +32,6 @@
     "imports-loader": "^0.6.5",
     "isomorphic-fetch": "^2.2.1",
     "jquery": "^2.2.0",
-    "moment": "^2.11.2",
     "lodash.debounce": "^4.0.3",
     "node-sass": "^3.4.2",
     "parse-link-header": "^0.4.1",
@@ -45,7 +44,6 @@
     "resolve-url-loader": "^1.4.3",
     "sass-loader": "^3.1.2",
     "style-loader": "^0.13.0",
-    "underscore": "^1.8.3",
     "url-loader": "^0.5.7"
   },
   "devDependencies": {
