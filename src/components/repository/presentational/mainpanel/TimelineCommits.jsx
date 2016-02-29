@@ -3,8 +3,6 @@ import ReactHighcharts from 'react-highcharts/bundle/ReactHighcharts'
 import chartsConf from './../../../../services/chartsConf'
 
 const TimelineCommits = ({data}) => {
-  ReactHighcharts.Highcharts.setOptions(chartsConf.DarkTheme)
-
   const config = {
     chart: {
       type: 'spline'

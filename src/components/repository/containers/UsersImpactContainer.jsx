@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import Loader from 'react-loader'
+import _ from 'underscore'
 
 import githubApi from '../../../services/githubApi'
 import UsersImpact from './../presentational/mainpanel/UsersImpact'
-import _ from 'underscore'
 
 export default class UsersImpactContainer extends Component {
   state = {
-    commits: [],
+    data: [],
     loaded: false,
   }
 
@@ -40,14 +40,13 @@ export default class UsersImpactContainer extends Component {
     }, [])
 
     const result = _.clone(object).sort((a,b) => a[1]-b[1]).reverse()
-
-    this.setState({commits:result, loaded:true})
+    this.setState({data:result, loaded:true})
   }
 
   render() {
     return (
       <Loader loaded={this.state.loaded} >
-        <UsersImpact data={this.state.commits} />
+        <UsersImpact data={this.state.data} />
       </Loader>
     )
   }

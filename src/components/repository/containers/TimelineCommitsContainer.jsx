@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import Loader from 'react-loader'
 import moment from 'moment'
+import _ from 'underscore'
 
 import githubApi from '../../../services/githubApi'
 import TimelineCommits from './../presentational/mainpanel/TimelineCommits'
-import _ from 'underscore'
 
 export default class TimelineCommitsContainer extends Component {
   state = {
