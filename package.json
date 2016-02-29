@@ -32,6 +32,7 @@
     "imports-loader": "^0.6.5",
     "isomorphic-fetch": "^2.2.1",
     "jquery": "^2.2.0",
+    "moment": "^2.11.2",
     "node-sass": "^3.4.2",
     "parse-link-header": "^0.4.1",
     "postcss": "^5.0.16",
