@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import _ from 'underscore'
+import debounce from 'lodash.debounce'
 
 import SearchResultsList from './SearchResultsList'
 import githubApi from '../../services/githubApi'
@@ -15,7 +15,7 @@ export default class SearchBar extends Component {
 
   constructor(props){
     super(props)
-    this.fetchRepos = _.debounce(this.fetchRepos,500)
+    this.fetchRepos = debounce(this.fetchRepos,500)
   }
 
   _onChange = (event) => {
