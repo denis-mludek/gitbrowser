@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import Loader from 'react-loader'
-import _ from 'underscore'
 
 import githubApi from '../../../services/githubApi'
 import UsersImpact from './../presentational/mainpanel/UsersImpact'
@@ -8,7 +7,7 @@ import UsersImpact from './../presentational/mainpanel/UsersImpact'
 export default class UsersImpactContainer extends Component {
   state = {
     data: [],
-    loaded: false,
+    loaded: false
   }
 
   static propTypes = {
@@ -29,8 +28,8 @@ export default class UsersImpactContainer extends Component {
   }
 
   computeCommits(commits){
-    const object = commits.reduce((acc, commit) => {
-      const index = _.findIndex(acc, (o)=> o[0]===commit.commit.committer.name )
+    const dataComputed = commits.reduce((acc, commit) => {
+      const index = acc.findIndex((o)=> o[0]===commit.commit.committer.name)
       if(index===-1){
         acc.push([commit.commit.committer.name, 1])
       }else{
@@ -39,8 +38,9 @@ export default class UsersImpactContainer extends Component {
       return acc
     }, [])
 
-    const result = _.clone(object).sort((a,b) => a[1]-b[1]).reverse()
-    this.setState({data:result, loaded:true})
+    // Array cloned, sorted (ascending), and reversed (descending)
+    const resultSorted = dataComputed.slice(0).sort((a,b) => a[1]-b[1]).reverse()
+    this.setState({data:resultSorted, loaded:true})
   }
 
   render() {
