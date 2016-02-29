@@ -39,7 +39,7 @@ export default class UsersImpactContainer extends Component {
     }, [])
 
     // Array cloned, sorted (ascending), and reversed (descending)
-    const resultSorted = dataComputed.slice(0).sort((a,b) => a[1]-b[1]).reverse()
+    const resultSorted = dataComputed.slice(0).sort((a,b) => b[1]-a[1])
     this.setState({data:resultSorted, loaded:true})
   }
 
