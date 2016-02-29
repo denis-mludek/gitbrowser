@@ -29,12 +29,8 @@ export default class UsersImpactContainer extends Component {
 
   computeCommits(commits){
     const dataComputed = commits.reduce((acc, commit) => {
-      const index = acc.findIndex((o)=> o[0]===commit.commit.committer.name)
-      if(index===-1){
-        acc.push([commit.commit.committer.name, 1])
-      }else{
-        acc[index][1]++
-      }
+      const index = acc.findIndex((o)=> o[0]===commit.commit.author.name)
+      index===-1 ? acc.push([commit.commit.author.name, 1]) : acc[index][1]++
       return acc
     }, [])
 

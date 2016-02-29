@@ -33,7 +33,7 @@ export default class TimelineCommitsContainer extends Component {
 
   computeCommits(commits){
     const computedData = commits.reduce((acc, commit) => {
-      const date = commit.commit.committer.date
+      const date = commit.commit.author.date
       const dateFormatted = date.substring(0, 10)
       const index = acc.findIndex((o) => o[0]===dateFormatted)
 
