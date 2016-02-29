@@ -1,9 +1,7 @@
 import React from 'react'
 import ReactHighcharts from 'react-highcharts/bundle/ReactHighcharts'
-import chartsConf from './../../../../services/chartsConf'
 
 const UsersImpact = ({data}) => {
-  ReactHighcharts.Highcharts.setOptions(chartsConf.DarkTheme)
   const config = {
     chart: {
       type: 'column'
@@ -53,8 +51,6 @@ const UsersImpact = ({data}) => {
 
   return (
     <div className="raw">
-      <h3>Users impact</h3>
-
       <div className="col-md-12 usersImpact">
         <ReactHighcharts config={config}/>
       </div>

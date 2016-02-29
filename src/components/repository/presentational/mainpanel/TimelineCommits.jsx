@@ -1,6 +1,5 @@
 import React from 'react'
 import ReactHighcharts from 'react-highcharts/bundle/ReactHighcharts'
-import chartsConf from './../../../../services/chartsConf'
 
 const TimelineCommits = ({data}) => {
   const config = {
@@ -48,8 +47,6 @@ const TimelineCommits = ({data}) => {
 
   return (
     <div className="raw">
-      <h3>Commits timeline</h3>
-
       <div className="col-md-12 commitsTimeline">
         <ReactHighcharts config={config} />
       </div>
