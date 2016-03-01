@@ -24,12 +24,12 @@ export default class ContributorsContainer extends Component {
     githubApi.getDataList(this.props.urlEndpoint, page, per_page)
       .then((data) => {
         this.setState({
-          contributors: data.list,
+          contributors: data.response,
           pagination: data.pagination,
           loaded: true
         })
-      }).catch(error => {
-        console.warn(error)
+      }).catch((error) => {
+        console.warn(error.message)
       })
   }
 

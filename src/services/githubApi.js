@@ -1,12 +1,10 @@
-import fetchPlus from 'fetch-plus'
-import plusJson from 'fetch-plus-json'
+import fetch from 'isomorphic-fetch'
 import parseLinkHeader from 'parse-link-header'
 
 const URL_API = 'https://api.github.com'
-const SEARCH_REPOS_URI = 'search/repositories'
-const REPOS_URI = 'repos'
+const SEARCH_REPOS_URI = '/search/repositories'
+const REPOS_URI = '/repos'
 
-const endpoint = fetchPlus.connectEndpoint(URL_API).addMiddleware(plusJson())
 
 /* Requests that return multiple items will be paginated to 30 items by default.
   You can specify further pages with the ?page parameter.
@@ -14,25 +12,33 @@ const endpoint = fetchPlus.connectEndpoint(URL_API).addMiddleware(plusJson())
   Note that for technical reasons not all endpoints respect the ?per_page parameter, see events for example.*/
 
 const githubApi = {
-  searchInRepositories(q, per_page = 15) {
-    return endpoint.browse(
-      SEARCH_REPOS_URI,
-      {query: {q, per_page}}
-    )
+  searchInRepositories(q, page = 1, per_page = 15) {
+    const url = URL_API + SEARCH_REPOS_URI
+    const queryParams = '?q='+q+'&page='+page+'&per_page='+per_page
+
+    return fetchFrom(url + queryParams)
   },
 
   getRepository(owner, repo) {
-    return endpoint.browse(
-      [REPOS_URI, owner, repo]
-    )
+    const url = URL_API + REPOS_URI + `/${owner}/${repo}`
+    return fetchFrom(url)
   },
 
   async getDataList(urlEndpoint, page, per_page) {
     const url = urlEndpoint.replace('{/sha}', '')
-    const response = await fetchPlus.fetch(url, {query: {per_page, page}})
-    const json = mergeLinkPaginationAndBody(response)
-    return json
+    const urlWithQueryParams = url + '?page='+page+'&per_page='+per_page
+    return fetchFrom(urlWithQueryParams)
   }
+}
+
+function fetchFrom(url){
+  return fetch(url)
+    .then((response) => {
+      if (response.status >= 400) {
+        throw new Error("Bad response from server")
+      }
+      return mergeLinkPaginationAndBody(response)
+    })
 }
 
 async function mergeLinkPaginationAndBody(response) {
@@ -44,7 +50,7 @@ async function mergeLinkPaginationAndBody(response) {
     pagination = parseLinkHeader(headerLink)
   }
 
-  return Object.assign({}, { list:jsonData, pagination })
+  return Object.assign({}, { response:jsonData, pagination })
 }
 
 export default githubApi

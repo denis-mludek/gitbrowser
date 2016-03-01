@@ -21,8 +21,8 @@ export default class TimelineCommitsContainer extends Component {
   fetchCommits(page = 1, per_page = 100) {
     githubApi.getDataList(this.props.urlEndpoint, page, per_page)
       .then((data) => {
-        this.computeCommits(data.list)
-      }).catch(error => {
+        this.computeCommits(data.response)
+      }).catch((error) => {
         console.warn(error)
       })
   }

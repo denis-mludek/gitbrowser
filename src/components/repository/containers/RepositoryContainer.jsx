@@ -16,14 +16,16 @@ export default class RepositoryContainer extends Component {
   }
 
   fetchRepositoryData(){
-    githubApi.getRepository(this.props.params.userName, this.props.params.repoName)
+    const {userName, repoName} = this.props.params
+
+    githubApi.getRepository(userName, repoName)
       .then((json) => {
         this.setState({
-          repository: json,
+          repository: json.response,
           loaded: true
         })
-      }).catch(error => {
-        console.warn(error)
+      }).catch((error) => {
+        console.warn(error.message)
       })
   }
 

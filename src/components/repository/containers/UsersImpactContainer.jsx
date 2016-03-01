@@ -19,10 +19,12 @@ export default class UsersImpactContainer extends Component {
   }
 
   fetchCommits(page = 1, per_page = 100) {
-    githubApi.getDataList(this.props.urlEndpoint, page, per_page)
+    const {urlEndpoint} = this.props
+
+    githubApi.getDataList(urlEndpoint, page, per_page)
       .then((data) => {
-        this.computeCommits(data.list)
-      }).catch(error => {
+        this.computeCommits(data.response)
+      }).catch((error) => {
         console.warn(error)
       })
   }
@@ -34,9 +36,11 @@ export default class UsersImpactContainer extends Component {
       return acc
     }, [])
 
-    // Array cloned, sorted (ascending), and reversed (descending)
     const resultSorted = dataComputed.slice(0).sort((a,b) => b[1]-a[1])
-    this.setState({data:resultSorted, loaded:true})
+    this.setState({
+      data: resultSorted,
+      loaded: true
+    })
   }
 
   render() {
