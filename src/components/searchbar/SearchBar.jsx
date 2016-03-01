@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { browserHistory } from 'react-router'
+import debounce from 'lodash.debounce'
 
 import SearchResultsList from './SearchResultsList'
 import './SearchBar.sass'
@@ -16,10 +17,6 @@ export default class SearchBar extends Component {
     onChange: React.PropTypes.func
   }
 
-  static defaultProps = {
-    results: []
-  }
-
   state = {
     text: "",
     indexHovered: -1,
@@ -29,6 +26,11 @@ export default class SearchBar extends Component {
 
   ignoreBlur = false
 
+  constructor(props){
+    super(props)
+    this.fetchRepos = debounce(this.props.onChange, 500)
+  }
+
   _setIgnoreBlur = (value) => {
     return () => this.ignoreBlur = value
   }
@@ -37,7 +39,7 @@ export default class SearchBar extends Component {
     const text = event.target.value
     this.setState({text})
     if (text.length >= MIN_CHARS) {
-      this.props.onChange(text)
+      this.fetchRepos(text)
     }
   }
 
@@ -64,7 +66,7 @@ export default class SearchBar extends Component {
     if (e.keyCode === DOWN_KEY_CODE && results.length > 0) {
       this.onArrowDown()
     } else if (e.keyCode === UP_KEY_CODE && results.length > 0) {
-      this.onArrowUp()
+      this.onArrowUp(e)
     } else if (e.keyCode === ENTER_KEY_CODE && this.state.repoSelected.name === this.state.text) {
       this.onEnter()
     }else if(e.keyCode === ESC_KEY_CODE){
@@ -72,12 +74,12 @@ export default class SearchBar extends Component {
     }else{
       this.setState({
         indexHovered: -1,
-        isOpen: true
+        isOpen: this.state.text.length > 1
       })
     }
   }
 
-  onArrowDown = () => {
+  onArrowDown() {
     let newIndexHovered = this.state.indexHovered
     this.props.results.length - 1 === this.state.indexHovered + 1 ? newIndexHovered = 0 : newIndexHovered++
     const repo = this.getRepoFromIndex(newIndexHovered)
@@ -89,7 +91,8 @@ export default class SearchBar extends Component {
     })
   }
 
-  onArrowUp(){
+  onArrowUp(e) {
+    e.preventDefault()
     let newIndexHovered = this.state.indexHovered
     newIndexHovered - 1 === -1 ? newIndexHovered = this.props.results.length - 1 : newIndexHovered--
     const repo = this.getRepoFromIndex(newIndexHovered)
@@ -101,20 +104,20 @@ export default class SearchBar extends Component {
     })
   }
 
-  onEchap(){
+  onEchap() {
     this.setState({
       indexHovered: -1,
       isOpen: false
     })
   }
 
-  onEnter(){
+  onEnter() {
     const repo = this.state.repoSelected
     const path = `/repos/${repo.full_name}`
     browserHistory.push(path)
   }
 
-  getRepoFromIndex(index){
+  getRepoFromIndex(index) {
     return this.props.results[index]
   }
 

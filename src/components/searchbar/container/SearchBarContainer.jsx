@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import debounce from 'lodash.debounce'
 
 import githubApi from '../../../services/githubApi'
 import SearchBar from './../SearchBar'
@@ -9,15 +8,11 @@ export default class SearchBarContainer extends Component {
     results: []
   }
 
-  componentDidMount(){
-    this.fetchRepos = debounce(this.fetchRepos,500)
-  }
-
   fetchRepos(text) {
     githubApi.searchInRepositories(text)
-      .then(json => {
-        this.setState({results: json.items})
-      }).catch(error => {
+      .then((json) => {
+        this.setState({results: json.response.items})
+      }).catch((error) => {
         console.warn(error)
       })
   }
