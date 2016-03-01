@@ -36,6 +36,11 @@ module.exports = {
       exclude: /node_modules/
     },
     {
+      test: /\.json/,
+      loaders: ['json-loader'],
+      exclude: /node_modules/
+    },
+    {
       test: /\.sass$/,
       loaders: ["style", "css", "sass?indentedSyntax&sourceMap"]
     },
