@@ -3,6 +3,10 @@ import classNames from 'classnames'
 
 import NavLink from '../nav/NavLink'
 
+const ResultLine = ({liClass, route, setIgnoreBlur, children}) =>
+  <li className={liClass} onMouseDown={setIgnoreBlur(true)} ><NavLink to={route}>{children}</NavLink></li>
+
+
 const SearchResultsList = ({results, indexHovered, isOpen, setIgnoreBlur}) => {
 
   const ulClass = classNames({
@@ -13,13 +17,17 @@ const SearchResultsList = ({results, indexHovered, isOpen, setIgnoreBlur}) => {
   return (
     <ul className={ulClass}>
       { results.map((item, i) => {
-        const liClass = classNames({
-          'li': true,
-          'li-hover': i === indexHovered
-        })
-        const route = '/repos/' + item.full_name
 
-        return <li key={i} className={liClass} onMouseDown={setIgnoreBlur(true)} ><NavLink to={route}>{item.full_name}</NavLink></li>
+        const props = {
+          liClass : classNames({
+            'li': true,
+            'li-hover': i === indexHovered
+          }),
+          route: `/repos/${item.full_name}`,
+          setIgnoreBlur
+        }
+
+        return <ResultLine key={i} {...props} >{item.full_name}</ResultLine>
       })}
     </ul>
   )
