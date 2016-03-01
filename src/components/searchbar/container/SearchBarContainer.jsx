@@ -19,9 +19,7 @@ export default class SearchBarContainer extends Component {
 
   render() {
     return (
-      <div className="col-md-offset-1 col-md-10 searchpanel">
-        <SearchBar results={this.state.results} onChange={this.fetchRepos.bind(this)} />
-      </div>
+      <SearchBar results={this.state.results} onChange={this.fetchRepos.bind(this)} />
     )
   }
 }

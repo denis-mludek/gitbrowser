@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 
 import NavLink from './../nav/NavLink'
 
+import './Header.sass'
+
 const Header = () =>  {
   return (
     <nav className="navbar navbar-inverse navbar-fixed-top">
@@ -13,7 +15,7 @@ const Header = () =>  {
             <span className="icon-bar"></span>
             <span className="icon-bar"></span>
           </button>
-          <a className="navbar-brand" href="#">GitBrowser</a>
+          <span className="navbar-brand sitename"><span className="glyphicon glyphicon-random icon-site"></span><NavLink to="/">GitBrowser</NavLink></span>
         </div>
         <div className="collapse navbar-collapse">
           <ul className="nav navbar-nav navbar-right">

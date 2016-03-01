@@ -44,12 +44,12 @@ export default class SearchBar extends Component {
   }
 
   _onBlur = () => {
-    if(!this.ignoreBlur){
+    /*if(!this.ignoreBlur){
       this.setState({
         isOpen: false,
         indexHovered: -1
       })
-    }
+    } */
   }
 
   _onFocus = () => {
@@ -123,9 +123,9 @@ export default class SearchBar extends Component {
 
   render() {
     return (
-      <div className="col-md-offset-1 col-md-10 searchpanel">
+      <div className="searchpanel">
         <div className="input-group">
-          <span className="input-group-addon glyphicon glyphicon-search"></span>
+          <div className="input-group-addon"><i className="glyphicon glyphicon-search"></i></div>
           <input type="text"
                  className="form-control input-lg"
                  placeholder="Search repositories"

@@ -1,43 +1,39 @@
 .searchpanel
 
+  .input-group-addon
+    border-radius: 0
+
   input
     text-align: center
+    border-radius: 0
 
   .ul
-    visibility: visible
     list-style: none
-    margin: 5px 0 0 0
+    margin: 0
     padding: 0
+    text-shadow: 0 1px 0.1em rgba(0,0,0,.4)
+    z-index: 1
 
     .li
       width: 100%
       background-color: ghostwhite
-      font-size: large
-      color: black
-
+      padding: 0 10px 0 10px
+      &:hover
+        @extend .li-hover
       a
+        font-size: large
         color: black
         text-decoration: none
-
-      &:hover
-        background-color: #428bca
-        color: white
-
-        a
-          color: white
-
-
+      p
+        margin: 2px 0 0 0
+        span
+          margin: 0 0 0 5px
+        .glyphicon-star
+          color: gold
 
     .li-hover
-      background-color: #003366
-      color: white
-
+      background-color: #528CC1
       a
         color: white
-
-  .ul-close
-    visibility: hidden
-
-
 
 

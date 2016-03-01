@@ -13,13 +13,13 @@ import TimelineCommitsContainer from './containers/TimelineCommitsContainer'
 import './Repository.sass'
 
 const Repository = ({repo}) => {
-  const headerProps = Object.assign({}, {
+  const headerProps =  {
     name:repo.full_name,
     url:repo.html_url
-  })
+  }
 
   return (
-    <div className="repository">
+    <div className="container repository">
       <Header {...headerProps} />
       <LeftPanel>
         <AuthorInformations owner={repo.owner} />
