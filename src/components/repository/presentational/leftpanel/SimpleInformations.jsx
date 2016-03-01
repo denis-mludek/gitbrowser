@@ -1,11 +1,18 @@
 import React from 'react'
 
+const Language = ({language}) => {
+  return (
+    <span className="label label-info">{language}</span>
+  )
+}
+
 const SimpleInformations = ({repo}) => {
   const dateReadable = (date) => new Date(Date.parse(date)).toLocaleDateString()
 
   return (
     <div className="raw">
       <div className="col-md-12 basicInformations">
+        <p> <Language language={repo.language} /> </p>
         <p>Created : {dateReadable(repo.created_at)}</p>
         <p>Last push : {dateReadable(repo.pushed_at)}</p>
         <br />
