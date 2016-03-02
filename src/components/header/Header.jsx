@@ -17,11 +17,6 @@ const Header = () =>  {
           </button>
           <span className="navbar-brand sitename"><span className="glyphicon glyphicon-random icon-site"></span><NavLink to="/">GitBrowser</NavLink></span>
         </div>
-        <div className="collapse navbar-collapse">
-          <ul className="nav navbar-nav navbar-right">
-            <li><NavLink to="/" onlyActiveOnIndex>Home</NavLink></li>
-          </ul>
-        </div>
       </div>
     </nav>
   )
