@@ -4,10 +4,10 @@ const AuthorInformations = ({owner}) => {
   return (
     <div className="raw">
       <div className="col-md-10 authorInformations">
+        <img src={owner.avatar_url} className="img-rounded" />
         <p>
           <span><a href={owner.html_url} target="_blank">{owner.login}</a></span>
         </p>
-        <img src={owner.avatar_url} className="img-thumbnail" />
       </div>
     </div>
   )

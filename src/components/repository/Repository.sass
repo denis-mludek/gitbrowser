@@ -3,12 +3,12 @@
 
   .leftpanel
     padding: 5px
-    background-color: rgba(34,41,49, 0.5)
-    border: hidden
-    border-radius: 5px
-
     .authorInformations
       text-align: center
+      padding-top: 5px
+      img
+        width: 80%
+        height: 80%
 
     .basicInformations
       margin-top: 10px
@@ -17,17 +17,58 @@
     @extend .leftpanel
 
     .contributors
-
+      h2
+        margin-top: 0
       .contributor
         text-align: center
+        img
+          width: 75px
+          height: 75px
+      .pager > li > a
+        background: #222931
+        color: #fff
+        border: 1px solid rgba(255,255,255, 0.1)
+        &:hover
+          background-color: #528CC1
+          color: #fff
+          cursor: pointer
 
   .header
+    margin-bottom: 10px
     h1
-      line-height: 120px
+      line-height: 35px
       text-align: center
-
       a
         color: white
         &:hover
           text-decoration: none
           color: white
+
+  .metrics
+    h2
+      margin-top: 10px
+    .menu
+      display: table
+      width: 100%
+      .title
+        width: auto
+        display: table-cell
+        text-transform: uppercase
+        font-size: medium
+        line-height: 40px
+        box-shadow: 2px 0 5px 0px rgba(0, 0, 0, 0.5)
+        margin: 0 10px 10px 0
+        text-align: center
+        background-color: #222931
+        border-right-style: solid
+        border-bottom-style: solid
+        border-color: rgba(255,255,255, 0.1)
+        border-width: 1px
+        &:hover
+          background-color: #528CC1
+          color: #fff
+          cursor: pointer
+
+    .highcharts-container
+      margin: 10px 0 0 0
+      box-shadow:  2px 0 5px 0px rgba(0, 0, 0, 0.5)

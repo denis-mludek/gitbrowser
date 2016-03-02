@@ -4,7 +4,7 @@ const Contributor = ({commiter}) => {
   return(
     <div className="col-md-2 contributor">
       <a href={commiter.html_url} target="_blank">
-        <img className="img-circle" src={commiter.avatar_url} alt="" width="75" height="75"/>
+        <img className="img-rounded" src={commiter.avatar_url} />
         <p>{commiter.login} <br />
         {commiter.contributions} commit</p>
       </a>
