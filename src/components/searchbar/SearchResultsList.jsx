@@ -3,6 +3,10 @@ import classNames from 'classnames'
 
 import NavLink from '../nav/NavLink'
 
+function numberWithSpaces(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+}
+
 const SearchResultsList = ({results, indexHovered, isOpen, setIgnoreBlur}) => {
 
   const ulClass = classNames({
@@ -11,9 +15,13 @@ const SearchResultsList = ({results, indexHovered, isOpen, setIgnoreBlur}) => {
     'hidden': !isOpen
   })
 
+  const items = results.items || []
+  const repositoryWord = results.total_count>1 ? 'repositories' : 'repository'
+
   return (
     <ul className={ulClass}>
-      { results.map((item, i) => {
+      { results.total_count ? <li className="nbResults" onMouseDown={setIgnoreBlur(true)}>{numberWithSpaces(results.total_count)} {repositoryWord}  found</li> : ''}
+      { items.map((item, i) => {
 
         const props = {
           liClass : classNames({
@@ -41,7 +49,7 @@ const ResultLine = ({liClass, route, setIgnoreBlur, item}) =>
   </li>
 
 SearchResultsList.propTypes = {
-  results: React.PropTypes.array,
+  results: React.PropTypes.object,
   indexHovered: React.PropTypes.number,
   isOpen: React.PropTypes.bool,
   setIgnoreBlur: React.PropTypes.func

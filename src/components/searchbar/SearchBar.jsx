@@ -13,7 +13,7 @@ const ESC_KEY_CODE = 27
 
 export default class SearchBar extends Component {
   static propTypes = {
-    results: React.PropTypes.array,
+    results: React.PropTypes.object,
     onChange: React.PropTypes.func
   }
 
@@ -44,12 +44,12 @@ export default class SearchBar extends Component {
   }
 
   _onBlur = () => {
-    /*if(!this.ignoreBlur){
+    if(!this.ignoreBlur){
       this.setState({
         isOpen: false,
         indexHovered: -1
       })
-    } */
+    }
   }
 
   _onFocus = () => {
@@ -61,11 +61,11 @@ export default class SearchBar extends Component {
   }
 
   _onKeyDown = (e) => {
-    const {results} = this.props
+    const {total_count} = this.props.results
 
-    if (e.keyCode === DOWN_KEY_CODE && results.length > 0) {
+    if (e.keyCode === DOWN_KEY_CODE && total_count > 0) {
       this.onArrowDown()
-    } else if (e.keyCode === UP_KEY_CODE && results.length > 0) {
+    } else if (e.keyCode === UP_KEY_CODE && total_count > 0) {
       this.onArrowUp(e)
     } else if (e.keyCode === ENTER_KEY_CODE && this.state.repoSelected.name === this.state.text) {
       this.onEnter()
@@ -81,7 +81,7 @@ export default class SearchBar extends Component {
 
   onArrowDown() {
     let newIndexHovered = this.state.indexHovered
-    this.props.results.length - 1 === this.state.indexHovered + 1 ? newIndexHovered = 0 : newIndexHovered++
+    this.state.indexHovered + 1 > this.props.results.items.length - 1 ? newIndexHovered = 0 : newIndexHovered++
     const repo = this.getRepoFromIndex(newIndexHovered)
     this.setState({
       text: repo.name,
@@ -94,7 +94,7 @@ export default class SearchBar extends Component {
   onArrowUp(e) {
     e.preventDefault()
     let newIndexHovered = this.state.indexHovered
-    newIndexHovered - 1 === -1 ? newIndexHovered = this.props.results.length - 1 : newIndexHovered--
+    newIndexHovered - 1 === -1 ? newIndexHovered = this.props.results.items.length - 1 : newIndexHovered--
     const repo = this.getRepoFromIndex(newIndexHovered)
     this.setState({
       text: repo.name,
@@ -118,7 +118,7 @@ export default class SearchBar extends Component {
   }
 
   getRepoFromIndex(index) {
-    return this.props.results[index]
+    return this.props.results.items[index]
   }
 
   render() {

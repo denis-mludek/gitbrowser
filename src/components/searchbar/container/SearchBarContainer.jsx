@@ -5,15 +5,15 @@ import SearchBar from './../SearchBar'
 
 export default class SearchBarContainer extends Component {
   state = {
-    results: []
+    results: {}
   }
 
   fetchRepos(text) {
     githubApi.searchInRepositories(text)
       .then((json) => {
-        this.setState({results: json.response.items})
+        this.setState({results: json.response})
       }).catch((error) => {
-        console.warn(error)
+        console.warn(error.message)
       })
   }
 
