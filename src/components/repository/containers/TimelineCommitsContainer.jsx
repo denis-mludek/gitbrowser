@@ -42,10 +42,11 @@ export default class TimelineCommitsContainer extends Component {
     }, [])
 
     // HightCharts needs UTC dates ascending sorted for timeline
-    const resultSorted = this.convertDateToUTC(computedData).sort((a,b) => {
-      return a[0]>b[0] ? 1 : a[0]<b[0] ? -1 : 0
+    const resultSorted = this.convertDateToUTC(computedData).sort((a,b) =>  a[0]>b[0] ? 1 : a[0]<b[0] ? -1 : 0)
+    this.setState({
+      data: resultSorted,
+      loaded: true
     })
-    this.setState({data:resultSorted, loaded:true})
   }
 
   render() {
