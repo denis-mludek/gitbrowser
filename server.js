@@ -8,16 +8,15 @@ new WebpackDevServer(webpack(webpackConfig), {
   hot: true,
   historyApiFallback: true,
   stats: {
-      colors: true,
-      hash: false,
-      version: false,
-      chunks: false,
-      children: false
+    colors: true,
+    hash: false,
+    version: false,
+    chunks: false,
+    children: false
   }
 }).listen(config.server.port, 'localhost', function (err, result) {
-    if (err) {
-      console.warn("Oops, there is an Error denis ! ", err)
-    }
-
-    console.log('Listening at localhost:', config.server.port)
-  })
+  if (err) {
+    console.warn("Oops, there is an Error denis ! ", err)
+  }
+  console.log('Listening at localhost:', config.server.port)
+})

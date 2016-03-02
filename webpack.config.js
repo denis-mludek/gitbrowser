@@ -6,7 +6,7 @@ const config = require('./config')
 module.exports = {
   devtool: 'eval-source-map',
   entry: [
-    'webpack-dev-server/client?http://localhost:'+config.server.port,
+    'webpack-dev-server/client?http://localhost:' + config.server.port,
     'webpack/hot/only-dev-server',
     'bootstrap-loader',
     'babel-polyfill',
