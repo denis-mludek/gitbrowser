@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
-import Loader from 'react-loader'
+import LoadingWrapper from './../../loader/LoadingWrapper'
 
-import githubApi from '../../../services/githubApi'
+import GithubApiService from '../../../services/GithubApiService'
+import MetricsComputeService from './../../../services/MetricsComputeService'
 import TimelineCommits from './../presentational/mainpanel/TimelineCommits'
+import RepositoryConstants from './../../../constants/RepositoryConstants'
+import CacheService from './../../../services/CacheService'
 
 export default class TimelineCommitsContainer extends Component {
   state = {
@@ -11,7 +14,8 @@ export default class TimelineCommitsContainer extends Component {
   }
 
   static propTypes = {
-    urlEndpoint: React.PropTypes.string
+    urlEndpoint: React.PropTypes.string,
+    fullname: React.PropTypes.string
   }
 
   componentDidMount() {
@@ -19,41 +23,35 @@ export default class TimelineCommitsContainer extends Component {
   }
 
   fetchCommits(page = 1, per_page = 100) {
-    githubApi.getDataList(this.props.urlEndpoint, page, per_page)
-      .then((data) => {
-        this.computeCommits(data.response)
-      }).catch((error) => {
-        console.warn(error)
-      })
+    const {fullname, urlEndpoint} = this.props
+    let results = CacheService.getCache(fullname, RepositoryConstants.CACHE_TYPE_METRICS_TIMELINE_COMMITS)
+
+    if(!results){
+      GithubApiService.getDataList(urlEndpoint, page, per_page)
+        .then((data) => {
+          results = MetricsComputeService.commitsTimeline(data.response)
+          this.loaded(results)
+          CacheService.setCache(fullname, RepositoryConstants.CACHE_TYPE_METRICS_TIMELINE_COMMITS, results, RepositoryConstants.CACHE_DURATION)
+        }).catch((error) => {
+          console.warn(error)
+        })
+    }else{
+      this.loaded(results)
+    }
   }
 
-  convertDateToUTC(data){
-    return data.map((item) => [Date.parse(item[0]), item[1]])
-  }
-
-  computeCommits(commits){
-    const computedData = commits.reduce((acc, commit) => {
-      const date = commit.commit.author.date
-      const dateFormatted = date.substring(0, 10)
-      const index = acc.findIndex((o) => o[0]===dateFormatted)
-
-      index===-1 ? acc.push([dateFormatted, 1]) : acc[index][1]++
-      return acc
-    }, [])
-
-    // HightCharts needs UTC dates ascending sorted for timeline
-    const resultSorted = this.convertDateToUTC(computedData).sort((a,b) =>  a[0]>b[0] ? 1 : a[0]<b[0] ? -1 : 0)
+  loaded(data) {
     this.setState({
-      data: resultSorted,
+      data,
       loaded: true
     })
   }
 
   render() {
     return (
-      <Loader loaded={this.state.loaded} >
+      <LoadingWrapper loaded={this.state.loaded} >
         <TimelineCommits data={this.state.data} />
-      </Loader>
+      </LoadingWrapper>
     )
   }
 }

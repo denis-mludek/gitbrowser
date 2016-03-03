@@ -11,10 +11,12 @@ import Metrics from './presentational/mainpanel/Metrics'
 import './Repository.sass'
 
 const Repository = ({repo}) => {
+  const fullname = repo.full_name
   const headerProps =  {
-    name:repo.full_name,
+    name:fullname,
     url:repo.html_url
   }
+
 
   return (
     <div className="container repository">
@@ -24,8 +26,8 @@ const Repository = ({repo}) => {
         <SimpleInformations repo={repo} />
       </LeftPanel>
       <MainPanel>
-        <ContributorsContainer urlEndpoint={repo.contributors_url} />
-        <Metrics urlEndpoint={repo.commits_url} />
+        <ContributorsContainer urlEndpoint={repo.contributors_url} fullname={fullname} />
+        <Metrics urlEndpoint={repo.commits_url} fullname={fullname} />
       </MainPanel>
     </div>
   )

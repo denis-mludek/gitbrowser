@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
 
-import githubApi from '../../../services/githubApi'
+import GithubApiService from './../../../services/GithubApiService'
+import CacheService from './../../../services/CacheService'
+import RepositoryConstants from './../../../constants/RepositoryConstants'
 import SearchBar from './../SearchBar'
+import LoadingWrapper from './../../loader/LoadingWrapper'
 
 export default class SearchBarContainer extends Component {
   state = {
@@ -9,12 +12,23 @@ export default class SearchBarContainer extends Component {
   }
 
   fetchRepos(text) {
-    githubApi.searchInRepositories(text)
-      .then((json) => {
-        this.setState({results: json.response})
-      }).catch((error) => {
-        console.warn(error.message)
+    const resultsCache = CacheService.getCache(text, RepositoryConstants.CACHE_TYPE_SEARCH)
+
+    if(!resultsCache) {
+      GithubApiService.searchInRepositories(text)
+        .then((json) => {
+          this.setState({
+            results: json.response
+          })
+          CacheService.setCache(text, RepositoryConstants.CACHE_TYPE_SEARCH, json.response, RepositoryConstants.CACHE_DURATION)
+        }).catch((error) => {
+          console.warn(error.message)
+        })
+    }else{
+      this.setState({
+        results: resultsCache
       })
+    }
   }
 
   render() {

@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
-import Loader from 'react-loader'
+import LoadingWrapper from './../../loader/LoadingWrapper'
 
-import githubApi from '../../../services/githubApi'
+import GithubApiService from '../../../services/GithubApiService'
+import MetricsComputeService from './../../../services/MetricsComputeService'
 import UsersImpact from './../presentational/mainpanel/UsersImpact'
+import RepositoryConstants from './../../../constants/RepositoryConstants'
+import CacheService from './../../../services/CacheService'
 
 export default class UsersImpactContainer extends Component {
   state = {
@@ -11,7 +14,8 @@ export default class UsersImpactContainer extends Component {
   }
 
   static propTypes = {
-    urlEndpoint: React.PropTypes.string
+    urlEndpoint: React.PropTypes.string,
+    fullname: React.PropTypes.string
   }
 
   componentDidMount() {
@@ -19,35 +23,35 @@ export default class UsersImpactContainer extends Component {
   }
 
   fetchCommits(page = 1, per_page = 100) {
-    const {urlEndpoint} = this.props
+    const {fullname, urlEndpoint} = this.props
+    let results = CacheService.getCache(fullname, RepositoryConstants.CACHE_TYPE_METRICS_USERS_IMPACT)
 
-    githubApi.getDataList(urlEndpoint, page, per_page)
-      .then((data) => {
-        this.computeCommits(data.response)
-      }).catch((error) => {
-        console.warn(error)
-      })
+    if(!results){
+      GithubApiService.getDataList(urlEndpoint, page, per_page)
+        .then((data) => {
+          results = MetricsComputeService.userImpact(data.response)
+          this.loaded(results)
+          CacheService.setCache(fullname, RepositoryConstants.CACHE_TYPE_METRICS_USERS_IMPACT, results, RepositoryConstants.CACHE_DURATION)
+        }).catch((error) => {
+          console.warn(error)
+        })
+    }else{
+      this.loaded(results)
+    }
   }
 
-  computeCommits(commits){
-    const dataComputed = commits.reduce((acc, commit) => {
-      const index = acc.findIndex((o)=> o[0]===commit.commit.author.name)
-      index===-1 ? acc.push([commit.commit.author.name, 1]) : acc[index][1]++
-      return acc
-    }, [])
-
-    const resultSorted = dataComputed.slice(0).sort((a,b) => b[1]-a[1])
+  loaded(data) {
     this.setState({
-      data: resultSorted,
+      data,
       loaded: true
     })
   }
 
   render() {
     return (
-      <Loader loaded={this.state.loaded} >
+      <LoadingWrapper loaded={this.state.loaded} >
         <UsersImpact data={this.state.data} />
-      </Loader>
+      </LoadingWrapper>
     )
   }
 }

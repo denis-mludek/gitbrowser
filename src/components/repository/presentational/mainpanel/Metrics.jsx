@@ -1,38 +1,49 @@
 import React, { Component} from 'react'
 import ReactHighcharts from 'react-highcharts/bundle/ReactHighcharts'
+import classNames from 'classnames'
 
 import chartsConf from './conf/chartsConf'
 import UsersImpactContainer from './../../containers/UsersImpactContainer'
 import TimelineCommitsContainer from './../../containers/TimelineCommitsContainer'
 
+const MenuPanelButton = ({onClick, title, style}) => {
+  return (
+    <li className={style} onClick={onClick}>{title}</li>
+  )
+}
 
 export default class Metrics extends Component {
-  state = {
-    panelSelected: 'UsersImpact'
-  }
-
   static propTypes = {
-    urlEndpoint: React.PropTypes.string
+    urlEndpoint: React.PropTypes.string,
+    fullname: React.PropTypes.string
   }
 
-  constructor(props) {
+  metrics = ['Users impact','Commits timeline']
+
+  state = {
+    panelSelected: 'Users impact'
+  }
+
+  constructor(props){
     super(props)
     ReactHighcharts.Highcharts.setOptions(chartsConf.DarkTheme)
   }
 
-  _handleMenuClick(panel) {
-    this.setState({panelSelected: panel})
+  handleMenuClick(title) {
+    this.setState({
+      panelSelected: title
+    })
   }
 
   graphToRender() {
-    const {urlEndpoint} = this.props
+    const {urlEndpoint, fullname} = this.props
 
     switch (this.state.panelSelected) {
-      case 'TimelineCommits':
-        return <TimelineCommitsContainer urlEndpoint={urlEndpoint} />
+      case this.metrics[1]:
+        return <TimelineCommitsContainer urlEndpoint={urlEndpoint} fullname={fullname}/>
         break
       default:
-        return <UsersImpactContainer urlEndpoint={urlEndpoint} />
+        return <UsersImpactContainer urlEndpoint={urlEndpoint} fullname={fullname} />
     }
   }
 
@@ -41,10 +52,23 @@ export default class Metrics extends Component {
       <div className="raw metrics">
         <h2>Metrics</h2>
 
-        <div className="menu">
-          <div className="title" onClick={this._handleMenuClick.bind(this, 'default')}>Users impact</div>
-          <div className="title" onClick={this._handleMenuClick.bind(this, 'TimelineCommits')}>Commits timeline</div>
-        </div>
+        <ul className="menu-panel" >
+          { this.metrics.map((metric, i) => {
+            const style = classNames({
+                'button': true,
+                'button-selected': metric === this.state.panelSelected
+              })
+
+            return (
+              <MenuPanelButton
+                key={i}
+                title={metric}
+                onClick={this.handleMenuClick.bind(this, metric)}
+                style={style}
+              />
+            )
+          })}
+        </ul>
 
         { this.graphToRender() }
       </div>

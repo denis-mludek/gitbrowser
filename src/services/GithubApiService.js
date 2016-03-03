@@ -1,16 +1,14 @@
 import fetch from 'isomorphic-fetch'
 import parseLinkHeader from 'parse-link-header'
-
-const URL_API = 'https://api.github.com'
-const SEARCH_REPOS_URI = '/search/repositories'
-const REPOS_URI = '/repos'
+import lscache from 'lscache'
+import GithubConstants from './../constants/GithubConstants'
 
 async function mergeLinkPaginationAndBody(response) {
   const headerLink = response.headers.get('Link')
   const jsonData = await response.json()
   let pagination = {}
 
-  if (headerLink) {
+  if(headerLink) {
     pagination = parseLinkHeader(headerLink)
   }
 
@@ -27,16 +25,16 @@ function fetchFrom(url) {
     })
 }
 
-const githubApi = {
+const GithubApiService = {
   searchInRepositories(q, page = 1, per_page = 15) {
-    const url = URL_API + SEARCH_REPOS_URI
+    const url = `${GithubConstants.URL_API}${GithubConstants.SEARCH_REPOS_URI}`
     const queryParams = `?q=${q}&page=${page}&per_page=${per_page}`
 
     return fetchFrom(url + queryParams)
   },
 
   getRepository(owner, repo) {
-    const url = `${URL_API}${REPOS_URI}/${owner}/${repo}`
+    const url = `${GithubConstants.URL_API}${GithubConstants.REPOS_URI}/${owner}/${repo}`
     return fetchFrom(url)
   },
 
@@ -47,4 +45,4 @@ const githubApi = {
   }
 }
 
-export default githubApi
+export default GithubApiService

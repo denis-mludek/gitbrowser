@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import Loader from 'react-loader'
 
-import githubApi from '../../../services/githubApi'
-
+import GithubApiService from './../../../services/GithubApiService'
 import Repository from './../Repository'
+import LoadingWrapper from './../../loader/LoadingWrapper'
+import CacheService from './../../../services/CacheService'
+import RepositoryConstants from './../../../constants/RepositoryConstants'
 
 export default class RepositoryContainer extends Component {
   state = {
@@ -11,29 +12,41 @@ export default class RepositoryContainer extends Component {
     loaded: false
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.fetchRepositoryData()
   }
 
-  fetchRepositoryData(){
+  fetchRepositoryData() {
     const {userName, repoName} = this.props.params
+    const fullnameRepo = `${repoName}/${userName}`
+    let result = CacheService.getCache(fullnameRepo, RepositoryConstants.CACHE_TYPE_REPO)
 
-    githubApi.getRepository(userName, repoName)
-      .then((json) => {
-        this.setState({
-          repository: json.response,
-          loaded: true
+    if(!result){
+      GithubApiService.getRepository(userName, repoName)
+        .then((json) => {
+          result = json.response
+          this.loaded(result)
+          CacheService.setCache(fullnameRepo, RepositoryConstants.CACHE_TYPE_REPO, result, RepositoryConstants.CACHE_DURATION)
+        }).catch((error) => {
+          console.warn(error.message)
         })
-      }).catch((error) => {
-        console.warn(error.message)
-      })
+    }else{
+      this.loaded(result)
+    }
+  }
+
+  loaded(data) {
+    this.setState({
+      repository: data,
+      loaded: true
+    })
   }
 
   render() {
     return (
-      <Loader loaded={this.state.loaded} >
+      <LoadingWrapper loaded={this.state.loaded} >
         <Repository repo={this.state.repository} />
-      </Loader>
+      </LoadingWrapper>
     )
   }
 }
