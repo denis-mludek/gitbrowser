@@ -1,14 +1,16 @@
 import React, { Component } from 'react'
 
-const Paginator = (props) => {
-  const {next, prev} = props.pagination || {}
+import './Paginator.sass'
+
+const Paginator = ({pagination, onClick}) => {
+  const {next, prev} = pagination || {}
 
   const renderPrev = () => {
-    return <li><a onClick={props.onPaginationClick(prev)}> <span aria-hidden="true">&larr;</span> </a></li>
+    return <li><a onClick={onClick.bind(null, prev)}> <span aria-hidden="true">&larr;</span> </a></li>
   }
 
   const renderNext = () => {
-    return <li><a onClick={props.onPaginationClick(next)}> <span aria-hidden="true">&rarr;</span></a></li>
+    return <li><a onClick={onClick.bind(null, next)}> <span aria-hidden="true">&rarr;</span></a></li>
   }
 
   return (

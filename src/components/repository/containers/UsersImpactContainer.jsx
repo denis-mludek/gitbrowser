@@ -3,7 +3,7 @@ import LoadingWrapper from './../../loader/LoadingWrapper'
 
 import GithubApiService from '../../../services/GithubApiService'
 import MetricsComputeService from './../../../services/MetricsComputeService'
-import UsersImpact from './../presentational/mainpanel/UsersImpact'
+import UsersImpact from './../presentational/mainpanel/metrics/UsersImpact'
 import RepositoryConstants from './../../../constants/RepositoryConstants'
 import CacheService from './../../../services/CacheService'
 

@@ -6,7 +6,7 @@ import AuthorInformations from './presentational/leftpanel/AuthorInformations'
 import SimpleInformations from './presentational/leftpanel/SimpleInformations'
 import MainPanel from './presentational/MainPanel'
 import ContributorsContainer from './containers/ContributorsContainer'
-import Metrics from './presentational/mainpanel/Metrics'
+import Metrics from './presentational/mainpanel/metrics/Metrics'
 
 import './Repository.sass'
 

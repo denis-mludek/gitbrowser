@@ -1,5 +1,7 @@
 import React from 'react'
 
+import './SimpleInformations.sass'
+
 const Language = ({language}) => {
   return (
     <span className="label label-info">{language}</span>
@@ -11,7 +13,7 @@ const SimpleInformations = ({repo}) => {
 
   return (
     <div className="raw">
-      <div className="col-md-12 basicInformations">
+      <div className="col-md-12 simpleInformations">
         <p> <Language language={repo.language} /> </p>
         <p>Created : {dateReadable(repo.created_at)}</p>
         <p>Last push : {dateReadable(repo.pushed_at)}</p>

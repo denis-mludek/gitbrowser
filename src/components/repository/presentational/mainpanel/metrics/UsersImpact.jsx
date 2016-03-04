@@ -1,5 +1,5 @@
 import React from 'react'
-import ReactHighcharts from 'react-highcharts/bundle/ReactHighcharts'
+import ReactHighcharts from '../../../../../../node_modules/react-highcharts/bundle/ReactHighcharts'
 
 const UsersImpact = ({data}) => {
   const config = {

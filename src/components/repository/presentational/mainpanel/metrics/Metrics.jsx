@@ -1,10 +1,12 @@
 import React, { Component} from 'react'
-import ReactHighcharts from 'react-highcharts/bundle/ReactHighcharts'
+import ReactHighcharts from '../../../../../../node_modules/react-highcharts/bundle/ReactHighcharts'
 import classNames from 'classnames'
 
 import chartsConf from './conf/chartsConf'
-import UsersImpactContainer from './../../containers/UsersImpactContainer'
-import TimelineCommitsContainer from './../../containers/TimelineCommitsContainer'
+import UsersImpactContainer from './../../../containers/UsersImpactContainer'
+import TimelineCommitsContainer from './../../../containers/TimelineCommitsContainer'
+
+import './Metrics.sass'
 
 const MenuPanelButton = ({onClick, title, style}) => {
   return (

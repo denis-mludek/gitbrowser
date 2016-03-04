@@ -1,5 +1,7 @@
 import React from 'react'
 
+import './Header.sass'
+
 const Header = ({name, url}) => {
   return (
     <div className="col-md-12 header">

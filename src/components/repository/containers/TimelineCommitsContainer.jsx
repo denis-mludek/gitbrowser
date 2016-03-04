@@ -3,7 +3,7 @@ import LoadingWrapper from './../../loader/LoadingWrapper'
 
 import GithubApiService from '../../../services/GithubApiService'
 import MetricsComputeService from './../../../services/MetricsComputeService'
-import TimelineCommits from './../presentational/mainpanel/TimelineCommits'
+import TimelineCommits from './../presentational/mainpanel/metrics/TimelineCommits'
 import RepositoryConstants from './../../../constants/RepositoryConstants'
 import CacheService from './../../../services/CacheService'
 

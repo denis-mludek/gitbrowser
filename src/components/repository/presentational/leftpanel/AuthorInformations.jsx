@@ -1,5 +1,7 @@
 import React from 'react'
 
+import './AuthorInformations.sass'
+
 const AuthorInformations = ({owner}) => {
   return (
     <div className="raw">
