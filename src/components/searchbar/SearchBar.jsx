@@ -31,14 +31,19 @@ export default class SearchBar extends Component {
     this.fetchRepos = debounce(this.props.onChange, 500)
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({isOpen: true})
+  }
+
   _setIgnoreBlur = (value) => {
-    return () => this.ignoreBlur = value
+    this.ignoreBlur = value
   }
 
   _onChange = (event) => {
-    const text = event.target.value
-    this.setState({text})
-    if (text.length >= MIN_CHARS) {
+    this.setState({text: event.target.value, isOpen: false})
+    const text = event.target.value.trim()
+
+  if (text.length >= MIN_CHARS) {
       this.fetchRepos(text)
     }
   }

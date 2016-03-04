@@ -1,11 +1,8 @@
 import React from 'react'
 import classNames from 'classnames'
+import { browserHistory } from 'react-router'
 
-import NavLink from '../nav/NavLink'
-
-function numberWithSpaces(x) {
-  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
-}
+const numberWithSpaces = (x) => x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")
 
 const SearchResultsList = ({results, indexHovered, isOpen, setIgnoreBlur}) => {
 
@@ -16,11 +13,21 @@ const SearchResultsList = ({results, indexHovered, isOpen, setIgnoreBlur}) => {
   })
 
   const items = results.items || []
-  const repositoryWord = results.total_count>1 ? 'repositories' : 'repository'
+
+  const renderNumberLine = () => {
+    const repositoryWord = results.total_count>1 ? 'repositories' : 'repository'
+    const nbRes = results.total_count
+    return (
+      nbRes ?
+        <li className="nbResults" >{numberWithSpaces(nbRes)} {repositoryWord} found</li>
+      :
+        ''
+    )
+  }
 
   return (
-    <ul className={ulClass}>
-      { results.total_count ? <li className="nbResults" onMouseDown={setIgnoreBlur(true)}>{numberWithSpaces(results.total_count)} {repositoryWord}  found</li> : ''}
+    <ul className={ulClass} onMouseDown={setIgnoreBlur.bind(null, true)} onMouseLeave={setIgnoreBlur.bind(null, false)} >
+      { renderNumberLine() }
       { items.map((item, i) => {
 
         const props = {
@@ -39,20 +46,33 @@ const SearchResultsList = ({results, indexHovered, isOpen, setIgnoreBlur}) => {
   )
 }
 
-const ResultLine = ({liClass, route, setIgnoreBlur, item}) =>
-  <li className={liClass} onMouseDown={setIgnoreBlur(true)} >
-    <NavLink to={route}>{item.full_name}</NavLink>
-    <p className="pull-right">
-      { item.stargazers_count>0 ? <span className="label label-info"><i className="glyphicon glyphicon-star"></i>{item.stargazers_count}</span> : '' }
-      <span className="label label-info">{item.language}</span>
-    </p>
-  </li>
+const ResultLine = ({liClass, route, item}) => {
+  const _handleClick = () => browserHistory.push(route)
+  const renderStargazers = () => {
+    return (
+      item.stargazers_count > 0 ?
+        <span className="label label-info"><i className="glyphicon glyphicon-star"></i>{item.stargazers_count}</span>
+      :
+        ''
+    )
+  }
+
+  return (
+    <li className={liClass} onClick={_handleClick}>
+      <span>{item.full_name}</span>
+
+      <span className="pull-right">
+        { renderStargazers() }
+        <span className="label label-info">{item.language}</span>
+      </span>
+    </li>
+  )
+}
 
 SearchResultsList.propTypes = {
   results: React.PropTypes.object,
   indexHovered: React.PropTypes.number,
-  isOpen: React.PropTypes.bool,
-  setIgnoreBlur: React.PropTypes.func
+  isOpen: React.PropTypes.bool
 }
 
 export default SearchResultsList
