@@ -1,3 +1,5 @@
+@import './../../assets/style/panelColors'
+
 .searchpanel
   .input-group-addon
     border-radius: 0
@@ -14,10 +16,10 @@
 
     .li
       width: 100%
-      background-color: ghostwhite
+      background-color: $bg_search_white
       padding: 0 10px 0 10px
       font-size: large
-      color: black
+      color: $black
       text-decoration: none
       &:hover
         @extend .li-hover
@@ -25,17 +27,17 @@
       .label
         margin: 0 0 0 3px
         .glyphicon-star
-          color: gold
+          color: $star_stargazers
 
     .nbResults
       width: 100%
-      background-color: ghostwhite
+      background-color: $bg_search_white
       font-size: medium
       color: black
       text-align: center
 
     .li-hover
-      background-color: #528CC1
+      background-color: $beautiful_blue
       cursor: pointer
       a
-        color: white
+        color: $white

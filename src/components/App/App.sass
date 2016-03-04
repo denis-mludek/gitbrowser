@@ -1,30 +1,20 @@
+@import './../../assets/style/panelColors'
+
 html
   height: 100%
 
 body
   padding-top: 50px
   min-height: 100%
-  background-color: #2d3742
-  color: #fff
+  background-color: $bg_home
+  color: $white
   text-shadow: 0 3px 0.1em rgba(0,0,0,0.4)
   font-family: 'Telex', sans-serif
   box-shadow: inset 0 0 100px rgba(0,0,0,.5)
 
 a
-  color: white
+  color: $white
   &:hover,&:active
     text-decoration: none
-    color: white
-
-canvas
-  position: absolute
-  top: 0
-  left: 0
-
-.loader
-  position: fixed
-  top: 0
-  left: 50%
-  margin-top: 25px
-  z-index: 9000
+    color: $white
 

@@ -1,5 +1,7 @@
 import React from 'react'
 
+import './Contributors.sass'
+
 const Contributor = ({commiter}) => {
   const commitWord = commiter.contributions > 1 ? 'commits' : 'commit'
   return(

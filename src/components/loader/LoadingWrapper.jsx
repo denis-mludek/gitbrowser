@@ -1,6 +1,8 @@
 import React from 'react'
 import Loader from 'react-loader'
 
+import './LoadingWrapper.sass'
+
 const LoadingWrapper = (props) => {
   return (
     <Loader loaded={props.loaded} color="#528CC1" speed={0.8} >
