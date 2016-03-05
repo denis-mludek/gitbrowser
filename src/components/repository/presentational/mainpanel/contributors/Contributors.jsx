@@ -17,14 +17,17 @@ const Contributor = ({commiter}) => {
 
 const Contributors = ({contributors, children}) => {
   return (
-    <div className="raw contributors">
+    <div className="row contributors">
       <h2>Contributors</h2>
 
-      { contributors.map((commiter, i) => {
-        return <Contributor key={i} commiter={commiter} />
-      })}
-
-      {children}
+      <div className="row">
+        { contributors.map((commiter, i) => {
+          return <Contributor key={i} commiter={commiter} />
+        })}
+      </div>
+      <div className="row">
+        {children}
+      </div>
     </div>
   )
 }
