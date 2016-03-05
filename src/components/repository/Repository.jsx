@@ -1,10 +1,10 @@
 import React from 'react'
 
 import Header from './presentational/Header'
-import LeftPanel from './presentational/LeftPanel'
+import LeftPanel from './../leftpanel/LeftPanel'
 import AuthorInformations from './presentational/leftpanel/AuthorInformations'
 import SimpleInformations from './presentational/leftpanel/SimpleInformations'
-import MainPanel from './presentational/MainPanel'
+import MainPanel from './../mainpanel/MainPanel'
 import ContributorsContainer from './containers/ContributorsContainer'
 import Metrics from './presentational/mainpanel/metrics/Metrics'
 
@@ -16,7 +16,6 @@ const Repository = ({repo}) => {
     name:fullname,
     url:repo.html_url
   }
-
 
   return (
     <div className="container repository">
