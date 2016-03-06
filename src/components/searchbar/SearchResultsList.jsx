@@ -17,8 +17,8 @@ const SearchResultsList = ({results, indexHovered, isOpen, setIgnoreBlur}) => {
   const renderNumberLine = () => {
     const repositoryWord = results.total_count>1 ? 'repositories' : 'repository'
     const nbRes = results.total_count
-    return (
-      nbRes ?
+      return (
+      nbRes>=0 ?
         <li className="nbResults" >{numberWithSpaces(nbRes)} {repositoryWord} found</li>
       :
         ''

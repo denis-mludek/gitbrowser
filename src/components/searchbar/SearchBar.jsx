@@ -32,7 +32,7 @@ export default class SearchBar extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({isOpen: true})
+    nextProps.results.items ? this.setState({isOpen: true}): null
   }
 
   _setIgnoreBlur = (value) => {
@@ -40,16 +40,12 @@ export default class SearchBar extends Component {
   }
 
   _onChange = (event) => {
-    this.setState({text: event.target.value, isOpen: false})
     const text = event.target.value
+    this.setState({text, isOpen: false})
 
-  if(text.length >= MIN_CHARS) {
+    if(text.length >= MIN_CHARS) {
       this.fetchRepos(text)
     }
-  }
-
-  secureInput(input) {
-    return encodeURIComponent(input.trim())
   }
 
   _onBlur = () => {
