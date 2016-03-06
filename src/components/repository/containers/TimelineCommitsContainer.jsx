@@ -6,6 +6,7 @@ import MetricsComputeService from './../../../services/MetricsComputeService'
 import TimelineCommits from './../presentational/mainpanel/metrics/TimelineCommits'
 import RepositoryConstants from './../../../constants/RepositoryConstants'
 import CacheService from './../../../services/CacheService'
+import Error from './../../error/Error'
 
 export default class TimelineCommitsContainer extends Component {
   state = {
@@ -30,19 +31,20 @@ export default class TimelineCommitsContainer extends Component {
       GithubApiService.getDataList(urlEndpoint, page, per_page)
         .then((data) => {
           results = MetricsComputeService.commitsTimeline(data.response)
-          this.loaded(results)
+          this.loaded(results, null)
           CacheService.setCache(fullname, RepositoryConstants.CACHE_TYPE_METRICS_TIMELINE_COMMITS, results, RepositoryConstants.CACHE_DURATION)
         }).catch((error) => {
-          console.warn(error)
+          this.loaded([], error.message)
         })
     }else{
-      this.loaded(results)
+      this.loaded(results, null)
     }
   }
 
-  loaded(data) {
+  loaded(data, error) {
     this.setState({
       data,
+      error,
       loaded: true
     })
   }
@@ -50,7 +52,11 @@ export default class TimelineCommitsContainer extends Component {
   render() {
     return (
       <LoadingWrapper loaded={this.state.loaded} >
-        <TimelineCommits data={this.state.data} />
+        {
+          this.state.error ?
+            <Error error={this.state.error} /> :
+            <TimelineCommits data={this.state.data} />
+        }
       </LoadingWrapper>
     )
   }

@@ -6,6 +6,7 @@ import Paginator from './../../paginator/Paginator'
 import GithubApiService from '../../../services/GithubApiService'
 import RepositoryConstants from './../../../constants/RepositoryConstants'
 import CacheService from './../../../services/CacheService'
+import Error from './../../error/Error'
 
 export default class ContributorsContainer extends Component {
   state = {
@@ -32,20 +33,21 @@ export default class ContributorsContainer extends Component {
       GithubApiService.getDataList(urlEndpoint, page, per_page)
         .then((data) => {
           results = data
-          this.loaded(results)
+          this.loaded(results, null)
           CacheService.setCache(keyCache, RepositoryConstants.CACHE_TYPE_CONTRIBUTORS, results, RepositoryConstants.CACHE_DURATION)
         }).catch((error) => {
-          console.warn(error.message)
+          this.loaded({response:[], pagination:{}}, error.message)
         })
     }else{
-      this.loaded(results)
+      this.loaded(results, null)
     }
   }
 
-  loaded(data){
+  loaded(data, error){
     this.setState({
       contributors: data.response,
       pagination: data.pagination,
+      error,
       loaded: true
     })
   }
@@ -58,9 +60,13 @@ export default class ContributorsContainer extends Component {
   render() {
     return (
       <LoadingWrapper loaded={this.state.loaded} >
-        <Contributors contributors={this.state.contributors}>
-          <Paginator pagination={this.state.pagination} onClick={this._handlePaginationClick} />
-        </Contributors>
+        {
+          this.state.error ?
+            <Error error={this.state.error} /> :
+            <Contributors contributors={this.state.contributors}>
+              <Paginator pagination={this.state.pagination} onClick={this._handlePaginationClick} />
+            </Contributors>
+        }
       </LoadingWrapper>
     )
   }

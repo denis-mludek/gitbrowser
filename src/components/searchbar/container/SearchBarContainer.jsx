@@ -5,10 +5,12 @@ import CacheService from './../../../services/CacheService'
 import RepositoryConstants from './../../../constants/RepositoryConstants'
 import SearchBar from './../SearchBar'
 import LoadingWrapper from './../../loader/LoadingWrapper'
+import Error from './../../error/Error'
 
 export default class SearchBarContainer extends Component {
   state = {
-    results: {}
+    results: {},
+    error: null
   }
 
   fetchRepos(text) {
@@ -18,11 +20,15 @@ export default class SearchBarContainer extends Component {
       GithubApiService.searchInRepositories(text)
         .then((json) => {
           this.setState({
-            results: json.response
+            results: json.response,
+            error: null
           })
           CacheService.setCache(text, RepositoryConstants.CACHE_TYPE_SEARCH, json.response, RepositoryConstants.CACHE_DURATION)
         }).catch((error) => {
-          console.warn(error.message)
+          this.setState({
+            error: error.message,
+            results: {}
+          })
         })
     }else{
       this.setState({
@@ -33,7 +39,10 @@ export default class SearchBarContainer extends Component {
 
   render() {
     return (
-      <SearchBar results={this.state.results} onChange={this.fetchRepos.bind(this)} />
+      <div>
+        <SearchBar results={this.state.results} onChange={this.fetchRepos.bind(this)} />
+        <Error error={this.state.error} />
+      </div>
     )
   }
 }

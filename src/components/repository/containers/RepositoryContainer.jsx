@@ -5,6 +5,7 @@ import Repository from './../Repository'
 import LoadingWrapper from './../../loader/LoadingWrapper'
 import CacheService from './../../../services/CacheService'
 import RepositoryConstants from './../../../constants/RepositoryConstants'
+import Error from './../../error/Error'
 
 export default class RepositoryContainer extends Component {
   state = {
@@ -25,19 +26,20 @@ export default class RepositoryContainer extends Component {
       GithubApiService.getRepository(userName, repoName)
         .then((json) => {
           result = json.response
-          this.loaded(result)
+          this.loaded(result, null)
           CacheService.setCache(fullnameRepo, RepositoryConstants.CACHE_TYPE_REPO, result, RepositoryConstants.CACHE_DURATION)
         }).catch((error) => {
-          console.warn(error.message)
+          this.loaded({}, error.message)
         })
     }else{
-      this.loaded(result)
+      this.loaded(result, null)
     }
   }
 
-  loaded(data) {
+  loaded(data, error) {
     this.setState({
       repository: data,
+      error,
       loaded: true
     })
   }
@@ -45,7 +47,11 @@ export default class RepositoryContainer extends Component {
   render() {
     return (
       <LoadingWrapper loaded={this.state.loaded} >
-        <Repository repo={this.state.repository} />
+        {
+          this.state.error ?
+          <Error error={this.state.error} /> :
+          <Repository repo={this.state.repository} />
+        }
       </LoadingWrapper>
     )
   }
