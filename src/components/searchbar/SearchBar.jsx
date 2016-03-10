@@ -18,7 +18,7 @@ export default class SearchBar extends Component {
   }
 
   state = {
-    text: "",
+    text: '',
     indexHovered: -1,
     repoSelected: {},
     isOpen: false
@@ -35,17 +35,16 @@ export default class SearchBar extends Component {
     nextProps.results.items ? this.setState({isOpen: true}): null
   }
 
-  _setIgnoreBlur = (value) => {
-    this.ignoreBlur = value
-  }
+  _setIgnoreBlur = (value) => this.ignoreBlur = value
 
   _onChange = (event) => {
     const text = event.target.value
-    this.setState({text, isOpen: false})
-
-    if(text.length >= MIN_CHARS) {
-      this.fetchRepos(text)
-    }
+    this.setState({
+      text,
+      isOpen: false
+    },
+      () => this.isMinimumCharWrote() ? this.fetchRepos(text) : null
+    )
   }
 
   _onBlur = () => {
@@ -58,29 +57,27 @@ export default class SearchBar extends Component {
   }
 
   _onFocus = () => {
-    this.setState({isOpen: true})
-  }
-
-  _onClick = () => {
-    !this.state.isOpen ? this.setState({isOpen: true}) : null
+    this.isMinimumCharWrote() ? this.setState({isOpen: true}) : this.setState({isOpen: false})
   }
 
   _onKeyDown = (e) => {
-    const {total_count} = this.props.results
+    if(this.isMinimumCharWrote()) {
+      const {total_count} = this.props.results
 
-    if (e.keyCode === DOWN_KEY_CODE && total_count > 0) {
-      this.onArrowDown()
-    } else if (e.keyCode === UP_KEY_CODE && total_count > 0) {
-      this.onArrowUp(e)
-    } else if (e.keyCode === ENTER_KEY_CODE && this.state.repoSelected.name === this.state.text) {
-      this.onEnter()
-    }else if(e.keyCode === ESC_KEY_CODE){
-      this.onEchap()
-    }else{
-      this.setState({
-        indexHovered: -1,
-        isOpen: this.state.text.length > 1
-      })
+      if (e.keyCode === DOWN_KEY_CODE && total_count > 0) {
+        this.onArrowDown()
+      } else if (e.keyCode === UP_KEY_CODE && total_count > 0) {
+        this.onArrowUp(e)
+      } else if (e.keyCode === ENTER_KEY_CODE && this.state.repoSelected.name === this.state.text) {
+        this.onEnter()
+      }else if(e.keyCode === ESC_KEY_CODE){
+        this.onEchap()
+      }else{
+        this.setState({
+          indexHovered: -1,
+          isOpen: this.state.text.length > 1
+        })
+      }
     }
   }
 
@@ -122,9 +119,9 @@ export default class SearchBar extends Component {
     browserHistory.push(path)
   }
 
-  getRepoFromIndex(index) {
-    return this.props.results.items[index]
-  }
+  getRepoFromIndex = (index) => this.props.results.items[index]
+
+  isMinimumCharWrote = () => this.state.text.length >= MIN_CHARS
 
   render() {
     return (
@@ -133,12 +130,11 @@ export default class SearchBar extends Component {
           <div className="input-group-addon"><i className="glyphicon glyphicon-search"></i></div>
           <input type="text"
                  className="form-control input-lg"
-                 placeholder="Search repositories"
+                 placeholder="Search repositories (minimum 3 characters)"
                  autoFocus="true"
                  onChange={this._onChange}
                  onKeyDown={this._onKeyDown}
                  onBlur={this._onBlur}
-                 onClick={this._onClick}
                  onFocus={this._onFocus}
                  value={this.state.text}
             />
