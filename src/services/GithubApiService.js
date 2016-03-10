@@ -23,42 +23,58 @@ const GithubApiService = {
   }
 }
 
-async function mergeLinkPaginationAndBody(response) {
+function fetchFrom(url) {
+  return fetch(url)
+    .catch((error) => {
+      throw new Error(`${GithubConstants.ERROR_MESSAGE_CONNECTIVITY} (${error.message})`)
+    })
+    .then(parseJson)
+    .then(handleErrors)
+    .then(mergeLinkPaginationAndBody)
+    .catch((error) => {
+      throw new Error(error)
+    })
+}
+
+function mergeLinkPaginationAndBody(object) {
+  const {response, json} = object
   const headerLink = response.headers.get('Link')
-  const jsonData = await response.json()
   let pagination = {}
 
   if(headerLink) {
     pagination = parseLinkHeader(headerLink)
   }
 
-  return Object.assign({}, { response: jsonData, pagination })
+  return Object.assign({}, { response: json, pagination })
 }
 
-function fetchFrom(url) {
-  return fetch(url)
-    .catch((error) => {
-      throw new Error(`${GithubConstants.ERROR_MESSAGE_CONNECTIVITY} (${error.message})`)
-    })
-    .then((response) => {
-      if(response.status === GithubConstants.CODE_ERROR_BAD_REQUEST) {
-        throw new Error(GithubConstants.ERROR_MESSAGE_BAD_REQUEST)
-      }
-      if(response.status === GithubConstants.CODE_ERROR_UNPROCESSABLE_ENTITY) {
-        throw new Error(GithubConstants.ERROR_MESSAGE_UNPROCESSABLE_ENTITY)
-      }
-      if(response.status >= GithubConstants.CODE_ERROR_SERVER){
-        throw new Error(GithubConstants.ERROR_MESSAGE_500)
-      }
-      if(response.status === GithubConstants.CODE_ERROR_NOT_FOUND){
-        throw new Error(GithubConstants.ERROR_MESSAGE_NOT_FOUND)
-      }
-      if(response.status >= GithubConstants.CODE_ERROR_BAD_REQUEST) {
-        throw new Error(GithubConstants.ERROR_MESSAGE_DEFAULT)
-      }
+function handleErrors(object) {
+  const {response, json} = object
 
-      return mergeLinkPaginationAndBody(response)
-    })
+  return new Promise((resolve, reject) => {
+
+    if(response.status === GithubConstants.CODE_ERROR_BAD_REQUEST) {
+      reject(GithubConstants.ERROR_MESSAGE_BAD_REQUEST)
+    }else if(response.status === GithubConstants.CODE_ERROR_UNPROCESSABLE_ENTITY) {
+        const errors = json.errors.reduce((acc, error) => {
+          acc += ` ${error.message}`
+          return acc
+        }, '')
+        reject(errors)
+    }else if(response.status >= GithubConstants.CODE_ERROR_SERVER){
+      reject(GithubConstants.ERROR_MESSAGE_500)
+    }else if(response.status === GithubConstants.CODE_ERROR_NOT_FOUND){
+      reject(GithubConstants.ERROR_MESSAGE_NOT_FOUND)
+    }else if(response.status >= GithubConstants.CODE_ERROR_BAD_REQUEST) {
+      reject(GithubConstants.ERROR_MESSAGE_DEFAULT)
+    }else{
+      resolve(object)
+    }
+  })
+}
+
+function parseJson(response) {
+  return response.json().then(json => Object.assign({}, {json, response}))
 }
 
 export default GithubApiService
