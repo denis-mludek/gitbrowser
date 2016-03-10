@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import LoadingWrapper from './../../loader/LoadingWrapper'
 
-import GithubApiService from '../../../services/GithubApiService'
-import MetricsComputeService from './../../../services/MetricsComputeService'
+import { getDataList } from '../../../services/GithubApiService'
+import { commitsTimeline } from './../../../services/MetricsComputeService'
+import { setCache, getCache } from './../../../services/CacheService'
 import TimelineCommits from './../presentational/mainpanel/metrics/TimelineCommits'
 import RepositoryConstants from './../../../constants/RepositoryConstants'
 import CacheService from './../../../services/CacheService'
@@ -25,14 +26,14 @@ export default class TimelineCommitsContainer extends Component {
 
   fetchCommits(page = 1, per_page = 100) {
     const {fullname, urlEndpoint} = this.props
-    let results = CacheService.getCache(fullname, RepositoryConstants.CACHE_TYPE_METRICS_TIMELINE_COMMITS)
+    let results = getCache(fullname, RepositoryConstants.CACHE_TYPE_METRICS_TIMELINE_COMMITS)
 
     if(!results){
-      GithubApiService.getDataList(urlEndpoint, page, per_page)
+      getDataList(urlEndpoint, page, per_page)
         .then((data) => {
-          results = MetricsComputeService.commitsTimeline(data.response)
+          results = commitsTimeline(data.response)
           this.loaded(results, null)
-          CacheService.setCache(fullname, RepositoryConstants.CACHE_TYPE_METRICS_TIMELINE_COMMITS, results, RepositoryConstants.CACHE_DURATION_MINUTE)
+          setCache(fullname, RepositoryConstants.CACHE_TYPE_METRICS_TIMELINE_COMMITS, results, RepositoryConstants.CACHE_DURATION_MINUTE)
         }).catch((error) => {
           this.loaded([], error.message)
         })

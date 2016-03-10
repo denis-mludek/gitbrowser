@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import NavLink from './../nav/NavLink'
+import NavLink from './../../nav/NavLink'
 
 import './Header.sass'
 

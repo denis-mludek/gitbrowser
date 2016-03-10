@@ -1,11 +1,11 @@
 import React from 'react'
 
+import LeftPanel from './../layout/leftpanel/LeftPanel'
+import MainPanel from './../layout/mainpanel/MainPanel'
+import ContributorsContainer from './containers/ContributorsContainer'
 import Header from './presentational/Header'
-import LeftPanel from './../leftpanel/LeftPanel'
 import AuthorInformations from './presentational/leftpanel/AuthorInformations'
 import SimpleInformations from './presentational/leftpanel/SimpleInformations'
-import MainPanel from './../mainpanel/MainPanel'
-import ContributorsContainer from './containers/ContributorsContainer'
 import Metrics from './presentational/mainpanel/metrics/Metrics'
 
 import './Repository.sass'
@@ -13,8 +13,8 @@ import './Repository.sass'
 const Repository = ({repo}) => {
   const fullname = repo.full_name
   const headerProps =  {
-    name:fullname,
-    url:repo.html_url
+    name: fullname,
+    url: repo.html_url
   }
 
   return (

@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 
-import GithubApiService from './../../../services/GithubApiService'
-import CacheService from './../../../services/CacheService'
-import RepositoryConstants from './../../../constants/RepositoryConstants'
+import { searchInRepositories }  from './../../../../services/GithubApiService'
+import { setCache, getCache } from './../../../../services/CacheService'
+import RepositoryConstants from './../../../../constants/RepositoryConstants'
 import SearchBar from './../SearchBar'
-import LoadingWrapper from './../../loader/LoadingWrapper'
-import Error from './../../error/Error'
+import LoadingWrapper from './../../../loader/LoadingWrapper'
+import Error from './../../../error/Error'
 
 export default class SearchBarContainer extends Component {
   state = {
@@ -14,16 +14,16 @@ export default class SearchBarContainer extends Component {
   }
 
   fetchRepos(text) {
-    const resultsCache = CacheService.getCache(text, RepositoryConstants.CACHE_TYPE_SEARCH)
+    const resultsCache = getCache(text, RepositoryConstants.CACHE_TYPE_SEARCH)
 
     if(!resultsCache) {
-      GithubApiService.searchInRepositories(text)
+      searchInRepositories(text)
         .then((json) => {
           this.setState({
             results: json.response,
             error: null
           })
-          CacheService.setCache(text, RepositoryConstants.CACHE_TYPE_SEARCH, json.response, RepositoryConstants.CACHE_DURATION_MINUTE)
+          setCache(text, RepositoryConstants.CACHE_TYPE_SEARCH, json.response, RepositoryConstants.CACHE_DURATION_MINUTE)
         }).catch((error) => {
           this.setState({
             error: error.message,

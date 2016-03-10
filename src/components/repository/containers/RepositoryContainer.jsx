@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 
-import GithubApiService from './../../../services/GithubApiService'
+import { getRepository } from './../../../services/GithubApiService'
+import { setCache, getCache } from './../../../services/CacheService'
 import Repository from './../Repository'
 import LoadingWrapper from './../../loader/LoadingWrapper'
-import CacheService from './../../../services/CacheService'
 import RepositoryConstants from './../../../constants/RepositoryConstants'
 import Error from './../../error/Error'
 
@@ -20,14 +20,14 @@ export default class RepositoryContainer extends Component {
   fetchRepositoryData() {
     const {userName, repoName} = this.props.params
     const fullnameRepo = `${repoName}/${userName}`
-    let result = CacheService.getCache(fullnameRepo, RepositoryConstants.CACHE_TYPE_REPO)
+    let result = getCache(fullnameRepo, RepositoryConstants.CACHE_TYPE_REPO)
 
     if(!result){
-      GithubApiService.getRepository(userName, repoName)
+      getRepository(userName, repoName)
         .then((json) => {
           result = json.response
           this.loaded(result, null)
-          CacheService.setCache(fullnameRepo, RepositoryConstants.CACHE_TYPE_REPO, result, RepositoryConstants.CACHE_DURATION_MINUTE)
+          setCache(fullnameRepo, RepositoryConstants.CACHE_TYPE_REPO, result, RepositoryConstants.CACHE_DURATION_MINUTE)
         }).catch((error) => {
           this.loaded({}, error.message)
         })

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router'
 
-import Header from '../header/Header'
+import Header from './../layout/header/Header'
 
 import './App.sass'
 

@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import LoadingWrapper from './../../loader/LoadingWrapper'
 
-import GithubApiService from '../../../services/GithubApiService'
-import MetricsComputeService from './../../../services/MetricsComputeService'
+import { getDataList } from '../../../services/GithubApiService'
+import { userImpact } from './../../../services/MetricsComputeService'
+import { setCache, getCache } from './../../../services/CacheService'
 import UsersImpact from './../presentational/mainpanel/metrics/UsersImpact'
 import RepositoryConstants from './../../../constants/RepositoryConstants'
-import CacheService from './../../../services/CacheService'
 import Error from './../../error/Error'
 
 export default class UsersImpactContainer extends Component {
@@ -25,14 +25,14 @@ export default class UsersImpactContainer extends Component {
 
   fetchCommits(page = 1, per_page = 100) {
     const {fullname, urlEndpoint} = this.props
-    let results = CacheService.getCache(fullname, RepositoryConstants.CACHE_TYPE_METRICS_USERS_IMPACT)
+    let results = getCache(fullname, RepositoryConstants.CACHE_TYPE_METRICS_USERS_IMPACT)
 
     if(!results){
-      GithubApiService.getDataList(urlEndpoint, page, per_page)
+      getDataList(urlEndpoint, page, per_page)
         .then((data) => {
-          results = MetricsComputeService.userImpact(data.response)
+          results = userImpact(data.response)
           this.loaded(results, null)
-          CacheService.setCache(fullname, RepositoryConstants.CACHE_TYPE_METRICS_USERS_IMPACT, results, RepositoryConstants.CACHE_DURATION_MINUTE)
+          setCache(fullname, RepositoryConstants.CACHE_TYPE_METRICS_USERS_IMPACT, results, RepositoryConstants.CACHE_DURATION_MINUTE)
         }).catch((error) => {
           this.loaded([], error.message)
         })

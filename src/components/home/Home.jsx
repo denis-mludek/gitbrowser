@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
-require('particles.js')
-
-import SearchBarContainer from '../searchbar/container/SearchBarContainer'
-import Footer from './../footer/Footer'
+import SearchBarContainer  from './searchbar/container/SearchBarContainer'
+import Footer  from './../layout/footer/Footer.jsx'
+import * as particles from 'particles.js'
 
 import './Home.sass'
 

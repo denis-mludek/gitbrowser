@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import LoadingWrapper from './../../loader/LoadingWrapper'
 
+import { getDataList } from './../../../services/GithubApiService'
+import { setCache, getCache } from './../../../services/CacheService'
 import Contributors from './../presentational/mainpanel/contributors/Contributors'
 import Paginator from './../../paginator/Paginator'
-import GithubApiService from '../../../services/GithubApiService'
 import RepositoryConstants from './../../../constants/RepositoryConstants'
-import CacheService from './../../../services/CacheService'
 import Error from './../../error/Error'
 
 export default class ContributorsContainer extends Component {
@@ -27,14 +27,14 @@ export default class ContributorsContainer extends Component {
   fetchContributors(page = 1, per_page = 6) {
     const {fullname, urlEndpoint} = this.props
     const keyCache = `${fullname}_${page}`
-    let results = CacheService.getCache(keyCache, RepositoryConstants.CACHE_TYPE_CONTRIBUTORS)
+    let results = getCache(keyCache, RepositoryConstants.CACHE_TYPE_CONTRIBUTORS)
 
     if(!results){
-      GithubApiService.getDataList(urlEndpoint, page, per_page)
+      getDataList(urlEndpoint, page, per_page)
         .then((data) => {
           results = data
           this.loaded(results, null)
-          CacheService.setCache(keyCache, RepositoryConstants.CACHE_TYPE_CONTRIBUTORS, results, RepositoryConstants.CACHE_DURATION_MINUTE)
+          setCache(keyCache, RepositoryConstants.CACHE_TYPE_CONTRIBUTORS, results, RepositoryConstants.CACHE_DURATION_MINUTE)
         }).catch((error) => {
           this.loaded({response:[], pagination:{}}, error.message)
         })
