@@ -5,7 +5,9 @@
   "description": "A simple GitBrowser. React + ES6 + SASS + Webpack experiment",
   "scripts": {
     "start": "node server.js",
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "test": "mocha --compilers js:babel-core/register --recursive",
+    "test:watch": "npm run test -- --watch"
   },
   "repository": {
     "type": "git",
@@ -20,9 +22,6 @@
   "dependencies": {
     "autoprefixer": "^6.3.3",
     "babel-polyfill": "^6.5.0",
-    "babel-preset-stage-0": "^6.5.0",
-    "babel-preset-stage-1": "^6.5.0",
-    "babel-preset-stage-3": "^6.5.0",
     "bootstrap-loader": "^1.0.8",
     "bootstrap-sass": "^3.3.6",
     "classnames": "^2.2.3",
@@ -33,7 +32,6 @@
     "jquery": "^2.2.0",
     "lodash.debounce": "^4.0.3",
     "lscache": "^1.0.5",
-    "node-sass": "^3.4.2",
     "parse-link-header": "^0.4.1",
     "particles.js": "^2.0.0",
     "postcss": "^5.0.16",
@@ -53,10 +51,16 @@
     "babel-loader": "^6.2.3",
     "babel-preset-es2015": "^6.5.0",
     "babel-preset-react": "^6.5.0",
+    "babel-preset-stage-0": "^6.5.0",
+    "babel-preset-stage-1": "^6.5.0",
+    "babel-preset-stage-3": "^6.5.0",
+    "node-sass": "^3.4.2",
+    "chai": "^3.5.0",
     "eslint": "^2.2.0",
     "eslint-config-airbnb": "^6.0.2",
     "eslint-plugin-react": "^4.1.0",
     "json-loader": "^0.5.4",
+    "mocha": "^2.4.5",
     "node-sass": "^3.4.2",
     "react-hot-loader": "^1.3.0",
     "sass-loader": "^3.1.2",
