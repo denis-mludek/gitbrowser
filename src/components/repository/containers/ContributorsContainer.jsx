@@ -34,7 +34,7 @@ export default class ContributorsContainer extends Component {
         .then((data) => {
           results = data
           this.loaded(results, null)
-          CacheService.setCache(keyCache, RepositoryConstants.CACHE_TYPE_CONTRIBUTORS, results, RepositoryConstants.CACHE_DURATION)
+          CacheService.setCache(keyCache, RepositoryConstants.CACHE_TYPE_CONTRIBUTORS, results, RepositoryConstants.CACHE_DURATION_MINUTE)
         }).catch((error) => {
           this.loaded({response:[], pagination:{}}, error.message)
         })

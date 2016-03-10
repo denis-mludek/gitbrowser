@@ -32,7 +32,7 @@ export default class TimelineCommitsContainer extends Component {
         .then((data) => {
           results = MetricsComputeService.commitsTimeline(data.response)
           this.loaded(results, null)
-          CacheService.setCache(fullname, RepositoryConstants.CACHE_TYPE_METRICS_TIMELINE_COMMITS, results, RepositoryConstants.CACHE_DURATION)
+          CacheService.setCache(fullname, RepositoryConstants.CACHE_TYPE_METRICS_TIMELINE_COMMITS, results, RepositoryConstants.CACHE_DURATION_MINUTE)
         }).catch((error) => {
           this.loaded([], error.message)
         })

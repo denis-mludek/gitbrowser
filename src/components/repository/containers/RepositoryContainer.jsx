@@ -27,7 +27,7 @@ export default class RepositoryContainer extends Component {
         .then((json) => {
           result = json.response
           this.loaded(result, null)
-          CacheService.setCache(fullnameRepo, RepositoryConstants.CACHE_TYPE_REPO, result, RepositoryConstants.CACHE_DURATION)
+          CacheService.setCache(fullnameRepo, RepositoryConstants.CACHE_TYPE_REPO, result, RepositoryConstants.CACHE_DURATION_MINUTE)
         }).catch((error) => {
           this.loaded({}, error.message)
         })

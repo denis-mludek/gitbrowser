@@ -23,7 +23,7 @@ export default class SearchBarContainer extends Component {
             results: json.response,
             error: null
           })
-          CacheService.setCache(text, RepositoryConstants.CACHE_TYPE_SEARCH, json.response, RepositoryConstants.CACHE_DURATION)
+          CacheService.setCache(text, RepositoryConstants.CACHE_TYPE_SEARCH, json.response, RepositoryConstants.CACHE_DURATION_MINUTE)
         }).catch((error) => {
           this.setState({
             error: error.message,

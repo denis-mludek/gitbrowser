@@ -32,7 +32,7 @@ export default class UsersImpactContainer extends Component {
         .then((data) => {
           results = MetricsComputeService.userImpact(data.response)
           this.loaded(results, null)
-          CacheService.setCache(fullname, RepositoryConstants.CACHE_TYPE_METRICS_USERS_IMPACT, results, RepositoryConstants.CACHE_DURATION)
+          CacheService.setCache(fullname, RepositoryConstants.CACHE_TYPE_METRICS_USERS_IMPACT, results, RepositoryConstants.CACHE_DURATION_MINUTE)
         }).catch((error) => {
           this.loaded([], error.message)
         })
