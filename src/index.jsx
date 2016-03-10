@@ -9,10 +9,10 @@ import NoMatchRoute from './components/noMatchRoute/NoMatchRoute'
 
 ReactDOM.render((
   <Router history={browserHistory}>
-    <Route path="/" component={App}>
+    <Route path='/' component={App}>
       <IndexRoute component={Home}/>
-      <Route path="/repos/:userName/:repoName" component={RepositoryContainer}/>
-      <Route path="*" component={NoMatchRoute}/>
+      <Route path='repos/:userName/:repoName' component={RepositoryContainer}/>
+      <Route path='*' component={NoMatchRoute}/>
     </Route>
   </Router>
 ), document.getElementById('root'))
