@@ -5,19 +5,16 @@ import './Paginator.sass'
 const Paginator = ({pagination, onClick}) => {
   const {next, prev} = pagination || {}
 
-  const renderPrev = () => {
-    return <li><a onClick={onClick.bind(null, prev)}> <span aria-hidden="true">&larr;</span> </a></li>
-  }
+  const renderPrev = <li><a onClick={onClick.bind(null, prev)}> <span aria-hidden="true">&larr;</span> </a></li>
 
-  const renderNext = () => {
-    return <li><a onClick={onClick.bind(null, next)}> <span aria-hidden="true">&rarr;</span></a></li>
-  }
+
+  const renderNext = <li><a onClick={onClick.bind(null, next)}> <span aria-hidden="true">&rarr;</span></a></li>
 
   return (
     <nav>
       <ul className="pager">
-        { prev ? renderPrev() : ''}
-        { next ? renderNext() : ''}
+        { prev ? renderPrev : ''}
+        { next ? renderNext : ''}
       </ul>
     </nav>
   )

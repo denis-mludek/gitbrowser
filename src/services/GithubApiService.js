@@ -16,7 +16,7 @@ const GithubApiService = {
     return fetchFrom(url)
   },
 
-  async getDataList(urlEndpoint, page, per_page) {
+  getDataList(urlEndpoint, page, per_page) {
     const url = urlEndpoint.replace('{/sha}', '')
     const urlWithQueryParams = `${url}?page=${page}&per_page=${per_page}`
     return fetchFrom(urlWithQueryParams)
