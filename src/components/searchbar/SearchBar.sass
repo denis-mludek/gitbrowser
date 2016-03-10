@@ -12,17 +12,19 @@
     list-style: none
     margin: 0
     padding: 0
-    text-shadow: 0 1px 0.1em rgba(0,0,0,.4)
+    text-shadow: none
 
     .li
       width: 100%
       background-color: $bg_search_white
       padding: 0 10px 0 10px
-      font-size: large
+      font-size: medium
       color: $black
       text-decoration: none
       &:hover
         @extend .li-hover
+      .pull-right
+        line-height: 20px
 
       .label
         margin: 0 0 0 3px
