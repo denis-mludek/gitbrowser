@@ -13,7 +13,7 @@ React, ES6/7 syntax, SASS modules, Webpack Hot Reload.
       * Commits timeline projection, based on the 100 latest commits
 
 # Live demo
-There is a live demo online [here](http://www.deniis.fr:5050).
+There is a live demo online [here](http://gitbrowser.deniis.fr/).
 
 # Author
 Copyright © 2016, Denis Mludek. All rights reserved.
