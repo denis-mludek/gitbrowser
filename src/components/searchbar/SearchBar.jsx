@@ -20,7 +20,7 @@ export default class SearchBar extends Component {
   state = {
     text: '',
     indexHovered: -1,
-    repoSelected: {},
+    itemSelected: {},
     isOpen: false
   }
 
@@ -68,7 +68,7 @@ export default class SearchBar extends Component {
         this.onArrowDown()
       } else if (e.keyCode === UP_KEY_CODE && total_count > 0) {
         this.onArrowUp(e)
-      } else if (e.keyCode === ENTER_KEY_CODE && this.state.repoSelected.name === this.state.text) {
+      } else if (e.keyCode === ENTER_KEY_CODE && this.state.itemSelected.name === this.state.text) {
         this.onEnter()
       }else if(e.keyCode === ESC_KEY_CODE){
         this.onEchap()
@@ -88,7 +88,7 @@ export default class SearchBar extends Component {
     this.setState({
       text: repo.name,
       indexHovered: newIndexHovered,
-      repoSelected: repo,
+      itemSelected: repo,
       isOpen: true
     })
   }
@@ -101,7 +101,7 @@ export default class SearchBar extends Component {
     this.setState({
       text: repo.name,
       indexHovered: newIndexHovered,
-      repoSelected: repo,
+      itemSelected: repo,
       isOpen: true
     })
   }
@@ -114,7 +114,7 @@ export default class SearchBar extends Component {
   }
 
   onEnter() {
-    const repo = this.state.repoSelected
+    const repo = this.state.itemSelected
     const path = `/repos/${repo.full_name}`
     browserHistory.push(path)
   }
