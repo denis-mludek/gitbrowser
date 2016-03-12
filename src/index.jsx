@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom'
 import { Router, Route, browserHistory, IndexRoute } from 'react-router'
 
 import App from './components/app/App'
-import RepositoryContainer from './components/repository/containers/RepositoryContainer'
-import Home from './components/home/Home'
-import NoMatchRoute from './components/noMatchRoute/NoMatchRoute'
+import RepositoryContainer from './components/pages/RepositoryContainer'
+import Home from './components/pages/Home'
+import NoMatchRoute from './components/pages/NoMatchRoute'
 
 ReactDOM.render((
   <Router history={browserHistory}>

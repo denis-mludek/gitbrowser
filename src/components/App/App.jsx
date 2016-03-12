@@ -1,14 +1,14 @@
 import React from 'react'
 import { Link } from 'react-router'
 
-import Header from './../layout/header/Header'
+import NavbarTop from './../layout/NavbarTop'
 
 import './App.sass'
 
 const App = ({children}) => {
   return (
     <div className="app">
-      <Header />
+      <NavbarTop />
       {children}
     </div>
   )
