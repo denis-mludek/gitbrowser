@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import { searchInRepositories }  from './../../services/GithubApiService'
 import { setCache, getCache } from './../../services/CacheService'
-import RepositoryConstants from './../../constants/RepositoryConstants'
+import { CACHE_TYPE_SEARCH, CACHE_DURATION_MINUTE } from './../../constants/RepositoryConstants'
 import SearchBar from './../organisms/SearchBar'
 import LoadingWrapper from './../atoms/LoadingWrapper'
 import Error from './../atoms/Error'
@@ -14,7 +14,7 @@ export default class SearchBarContainer extends Component {
   }
 
   fetchRepos(text) {
-    const resultsCache = getCache(text, RepositoryConstants.CACHE_TYPE_SEARCH)
+    const resultsCache = getCache(text, CACHE_TYPE_SEARCH)
 
     if(!resultsCache) {
       searchInRepositories(text)
@@ -23,7 +23,7 @@ export default class SearchBarContainer extends Component {
             results: json.response,
             error: null
           })
-          setCache(text, RepositoryConstants.CACHE_TYPE_SEARCH, json.response, RepositoryConstants.CACHE_DURATION_MINUTE)
+          setCache(text, CACHE_TYPE_SEARCH, json.response, CACHE_DURATION_MINUTE)
         }).catch((error) => {
           this.setState({
             error: error.message,
