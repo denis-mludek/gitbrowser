@@ -20,14 +20,14 @@ export default class RepositoryContainer extends Component {
   fetchRepositoryData() {
     const {userName, repoName} = this.props.params
     const fullnameRepo = `${repoName}/${userName}`
-    let result = getCache(fullnameRepo, RepositoryConstants.CACHE_TYPE_REPO)
+    let result = getCache(fullnameRepo, CACHE_TYPE_REPO)
 
     if(!result){
       getRepository(userName, repoName)
         .then((json) => {
           result = json.response
           this.loaded(result, null)
-          setCache(fullnameRepo, RepositoryConstants.CACHE_TYPE_REPO, result, RepositoryConstants.CACHE_DURATION_MINUTE)
+          setCache(fullnameRepo, CACHE_TYPE_REPO, result, CACHE_DURATION_MINUTE)
         }).catch((error) => {
           this.loaded({}, error.message)
         })

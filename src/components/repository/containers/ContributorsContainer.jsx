@@ -27,14 +27,14 @@ export default class ContributorsContainer extends Component {
   fetchContributors(page = 1, per_page = 6) {
     const {fullname, urlEndpoint} = this.props
     const keyCache = `${fullname}_${page}`
-    let results = getCache(keyCache, RepositoryConstants.CACHE_TYPE_CONTRIBUTORS)
+    let results = getCache(keyCache, CACHE_TYPE_CONTRIBUTORS)
 
     if(!results){
       getDataList(urlEndpoint, page, per_page)
         .then((data) => {
           results = data
           this.loaded(results, null)
-          setCache(keyCache, RepositoryConstants.CACHE_TYPE_CONTRIBUTORS, results, RepositoryConstants.CACHE_DURATION_MINUTE)
+          setCache(keyCache, CACHE_TYPE_CONTRIBUTORS, results, CACHE_DURATION_MINUTE)
         }).catch((error) => {
           this.loaded({response:[], pagination:{}}, error.message)
         })

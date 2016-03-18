@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import LoadingWrapper from './../../loader/LoadingWrapper'
 
+import LoadingWrapper from './../../loader/LoadingWrapper'
 import { getDataList } from '../../../services/GithubApiService'
 import { userImpact } from './../../../services/MetricsComputeService'
 import { setCache, getCache } from './../../../services/CacheService'
@@ -25,14 +25,14 @@ export default class UsersImpactContainer extends Component {
 
   fetchCommits(page = 1, per_page = 100) {
     const {fullname, urlEndpoint} = this.props
-    let results = getCache(fullname, RepositoryConstants.CACHE_TYPE_METRICS_USERS_IMPACT)
+    let results = getCache(fullname, CACHE_TYPE_METRICS_USERS_IMPACT)
 
     if(!results){
       getDataList(urlEndpoint, page, per_page)
         .then((data) => {
           results = userImpact(data.response)
           this.loaded(results, null)
-          setCache(fullname, RepositoryConstants.CACHE_TYPE_METRICS_USERS_IMPACT, results, RepositoryConstants.CACHE_DURATION_MINUTE)
+          setCache(fullname, CACHE_TYPE_METRICS_USERS_IMPACT, results, CACHE_DURATION_MINUTE)
         }).catch((error) => {
           this.loaded([], error.message)
         })
