@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import SearchBarContainer  from './../ecosystems/SearchBarContainer'
+import SearchBarContainer  from './../containers/SearchBarContainer'
 import Footer  from './../layout/Footer'
 import * as particles from 'particles.js'
 

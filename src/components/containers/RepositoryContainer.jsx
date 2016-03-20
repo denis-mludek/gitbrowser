@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import { getRepository } from './../../services/GithubApiService'
 import { setCache, getCache } from './../../services/CacheService'
-import Repository from './Repository'
+import Repository from './../pages/Repository'
 import LoadingWrapper from './../atoms/LoadingWrapper'
 import { CACHE_TYPE_REPO, CACHE_DURATION_MINUTE } from './../../constants/RepositoryConstants'
 import Error from './../atoms/Error'

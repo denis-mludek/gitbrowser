@@ -3,8 +3,8 @@ import ReactHighcharts from '../../../node_modules/react-highcharts/bundle/React
 import classNames from 'classnames'
 
 import chartsConf from './../../assets/conf/chartsConf'
-import UsersImpactContainer from './../organisms/UsersImpactContainer'
-import TimelineCommitsContainer from './../organisms/TimelineCommitsContainer'
+import UsersImpactContainer from './../containers/UsersImpactContainer'
+import TimelineCommitsContainer from './../containers/TimelineCommitsContainer'
 import MenuPanelButton from './../atoms/MenuPanelButton'
 
 import './styles/Metrics.sass'
