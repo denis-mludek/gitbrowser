@@ -1,8 +1,9 @@
 /* ---------------- exports ---------------- */
 export function userImpact(data) {
   const computedData = data.reduce((acc, commit) => {
-    const index = acc.findIndex((o)=> o[0]===commit.commit.author.name)
-    index===-1 ? acc.push([commit.commit.author.name, 1]) : acc[index][1]++
+    const login = commit.author ? commit.author.login : commit.commit.committer.name
+    const index = acc.findIndex((o)=> o[0]===login)
+    index===-1 ? acc.push([login, 1]) : acc[index][1]++
     return acc
   }, [])
 
