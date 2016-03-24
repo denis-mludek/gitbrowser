@@ -1,0 +1,6 @@
+{
+  "name": "Gitbrowser",
+  "tagline": "GitBrowser - React, ES6/7 syntax, SASS modules, Webpack HMR",
+  "body": "# GitBrowser\r\n\r\nWeb client application.\r\nReact, ES6/7 syntax, SASS modules, Webpack Hot Reload.\r\n\r\n# Features\r\n* Search repositories of Github by name, with an awesome autocomplete\r\n* See details on the selected repository from search\r\n  * Principal language, stargazers, author...\r\n  * List of contributors\r\n  * Metrics :\r\n      * Users impact based on the 100 latest commits\r\n      * Commits timeline projection, based on the 100 latest commits\r\n\r\n# Live demo\r\nThere is a live demo online [here](http://gitbrowser.deniis.fr/).\r\n\r\n# Author\r\nCopyright © 2016, Denis Mludek. All rights reserved.\r\n",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
