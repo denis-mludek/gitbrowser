@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import { Router, Route, browserHistory, IndexRoute } from 'react-router'
 
 import App from './components/app/App'
-import RepositoryContainer from './components/pages/RepositoryContainer'
+import RepositoryContainer from './components/containers/RepositoryContainer'
 import Home from './components/pages/Home'
 import NoMatchRoute from './components/pages/NoMatchRoute'
 

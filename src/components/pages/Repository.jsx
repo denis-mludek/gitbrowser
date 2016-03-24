@@ -2,7 +2,7 @@ import React from 'react'
 
 import LeftPanel from './../layout/LeftPanel'
 import MainPanel from './../layout/MainPanel'
-import ContributorsContainer from './../ecosystems/ContributorsContainer'
+import ContributorsContainer from './../containers/ContributorsContainer'
 import HeaderTitle from './../atoms/HeaderTitle'
 import AuthorInformations from './../atoms/AuthorInformations'
 import SimpleInformations from './../atoms/SimpleInformations'

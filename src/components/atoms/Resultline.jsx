@@ -1,4 +1,5 @@
 import React from 'react'
+import { browserHistory } from 'react-router'
 
 const ResultLine = ({liClass, route, item}) => {
   const _handleClick = () => browserHistory.push(route)

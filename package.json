@@ -1,10 +1,11 @@
 {
   "name": "gitbrowser",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "private": true,
   "description": "A simple GitBrowser. React, ES6/7 syntax, SASS modules, Webpack Hot Reload",
   "scripts": {
     "start": "node server.js",
+    "build": "webpack -p --config webpack.production.config.js",
     "lint": "eslint src",
     "test": "mocha --compilers js:babel-core/register --recursive",
     "test:watch": "npm run test -- --watch"
