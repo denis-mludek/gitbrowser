@@ -16,7 +16,7 @@ new WebpackDevServer(webpack(webpackConfig), {
   }
 }).listen(config.server.port, 'localhost', function (err, result) {
   if (err) {
-    console.warn("Oops, there is an Error denis ! ", err)
+    console.warn("Oops, there is an Error ! ", err)
   }
   console.log('Listening at localhost:', config.server.port)
 })
