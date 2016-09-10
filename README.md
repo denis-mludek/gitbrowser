@@ -1,11 +1,12 @@
 # GitBrowser
 
-Web client application.
-React, ES6/7 syntax, SASS modules, Webpack Hot Reload.
+Front-end application using Git API.
+
+Tech stack : React, React-Router, ES6/7 syntax with Babel, SASS, Webpack with Hot Reload.
 
 # Features
-* Search repositories of Github by name, with an awesome autocomplete
-* See details on the selected repository from search
+* Find Github's repositories by name, with an homemade autocomplete
+* See main repo informations :
   * Principal language, stargazers, author...
   * List of contributors
   * Metrics :
@@ -13,7 +14,4 @@ React, ES6/7 syntax, SASS modules, Webpack Hot Reload.
       * Commits timeline projection, based on the 100 latest commits
 
 # Live demo
-There is a live demo online [here](http://gitbrowser.deniis.fr/).
-
-# Author
-Copyright © 2016, Denis Mludek. All rights reserved.
+There is a live demo online [here](http://gitbrowser.denis.wtf/).
