@@ -4,7 +4,7 @@ import { getRepository } from './../../../services/GithubApiService'
 import { setCache, getCache } from './../../../services/CacheService'
 import Repository from './../Repository'
 import LoadingWrapper from './../../loader/LoadingWrapper'
-import RepositoryConstants from './../../../constants/RepositoryConstants'
+import { CACHE_TYPE_REPO, CACHE_DURATION_MINUTE } from './../../../constants/RepositoryConstants'
 import Error from './../../error/Error'
 
 export default class RepositoryContainer extends Component {

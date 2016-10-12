@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import { searchInRepositories }  from './../../../../services/GithubApiService'
 import { setCache, getCache } from './../../../../services/CacheService'
-import RepositoryConstants from './../../../../constants/RepositoryConstants'
+import { CACHE_TYPE_SEARCH, CACHE_DURATION_MINUTE } from './../../../../constants/RepositoryConstants'
 import SearchBar from './../SearchBar'
 import LoadingWrapper from './../../../loader/LoadingWrapper'
 import Error from './../../../error/Error'

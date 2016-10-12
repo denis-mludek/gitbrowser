@@ -5,7 +5,7 @@ import { getDataList } from '../../../services/GithubApiService'
 import { commitsTimeline } from './../../../services/MetricsComputeService'
 import { setCache, getCache } from './../../../services/CacheService'
 import TimelineCommits from './../presentational/mainpanel/metrics/TimelineCommits'
-import RepositoryConstants from './../../../constants/RepositoryConstants'
+import { CACHE_TYPE_METRICS_TIMELINE_COMMITS, CACHE_DURATION_MINUTE } from './../../../constants/RepositoryConstants'
 import CacheService from './../../../services/CacheService'
 import Error from './../../error/Error'
 

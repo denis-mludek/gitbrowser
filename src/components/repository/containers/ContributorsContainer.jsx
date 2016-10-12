@@ -5,7 +5,7 @@ import { getDataList } from './../../../services/GithubApiService'
 import { setCache, getCache } from './../../../services/CacheService'
 import Contributors from './../presentational/mainpanel/contributors/Contributors'
 import Paginator from './../../paginator/Paginator'
-import RepositoryConstants from './../../../constants/RepositoryConstants'
+import { CACHE_TYPE_CONTRIBUTORS, CACHE_DURATION_MINUTE } from './../../../constants/RepositoryConstants'
 import Error from './../../error/Error'
 
 export default class ContributorsContainer extends Component {

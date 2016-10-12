@@ -5,7 +5,7 @@ import { getDataList } from '../../../services/GithubApiService'
 import { userImpact } from './../../../services/MetricsComputeService'
 import { setCache, getCache } from './../../../services/CacheService'
 import UsersImpact from './../presentational/mainpanel/metrics/UsersImpact'
-import RepositoryConstants from './../../../constants/RepositoryConstants'
+import { CACHE_TYPE_METRICS_USERS_IMPACT, CACHE_DURATION_MINUTE } from './../../../constants/RepositoryConstants'
 import Error from './../../error/Error'
 
 export default class UsersImpactContainer extends Component {
